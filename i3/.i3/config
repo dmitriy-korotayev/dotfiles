@@ -1,0 +1,307 @@
+# i3 config file
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+##################
+# Look
+##################
+
+# tearing-free experience
+exec compton -b
+
+##### Colors #####
+
+# https://github.com/Gravemind/ArchLinux/blob/master/.i3/config
+##class                   border  backgr. text    indicator
+# client.focused          #000000 #285577 #dddddd #0099ff
+# client.focused_inactive #000000 #333333 #888888 #484e50
+# client.unfocused        #000000 #000000 #555555 #292d2e
+# client.urgent           #2f343a #900000 #ffffff #900000
+## Def
+# client.focused          #4c7899 #285577 #ffffff #2e9ef4
+# client.focused_inactive #333333 #5f676a #ffffff #484e50
+# client.unfocused        #333333 #222222 #888888 #292d2e
+# client.urgent           #2f343a #900000 #ffffff #900000
+
+##### Fonts #####
+
+# Font for window titles and bar
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, if you need a lot of unicode glyphs or
+# right-to-left text rendering, you should instead use pango for rendering and
+# chose a FreeType font, such as:
+# font pango:DejaVu Sans Mono 10
+
+##### Bar #####
+bar {
+    status_command i3status
+}
+
+###################
+# Feel
+###################
+
+# turn off the screen after 10m
+exec --no-startup-id xset dpms 600
+
+###################
+# Keybindings
+###################
+
+# Mod4 = Super key
+# Mod1 = Alt key
+set $mod Mod4
+
+##### Workspaces #####
+
+set $w1 1: web
+set $w2 2: work
+set $w3 3: work2
+set $w4 4
+set $w5 5
+set $w6 6
+set $w7 7
+set $w8 8
+set $w9 9
+set $w10 10
+
+# switch to workspace
+bindsym $mod+n workspace next 
+bindsym $mod+p workspace prev 
+bindsym $mod+q workspace back_and_forth 
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w10
+
+# move focused container to workspace
+bindsym $mod+ctrl+1 move container to workspace $w1
+bindsym $mod+ctrl+2 move container to workspace $w2
+bindsym $mod+ctrl+3 move container to workspace $w3
+bindsym $mod+ctrl+4 move container to workspace $w4
+bindsym $mod+ctrl+5 move container to workspace $w5
+bindsym $mod+ctrl+6 move container to workspace $w6
+bindsym $mod+ctrl+7 move container to workspace $w7
+bindsym $mod+ctrl+8 move container to workspace $w8
+bindsym $mod+ctrl+9 move container to workspace $w9
+bindsym $mod+ctrl+0 move container to workspace $w10
+bindsym $mod+ctrl+n move container to workspace next
+bindsym $mod+ctrl+p move container to workspace prev
+
+
+##### Window Manipulation #####
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# change focus (default: jkl;)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+d focus child
+
+# move focused window (default: jkl;)
+bindsym $mod+ctrl+h move left
+bindsym $mod+ctrl+j move down
+bindsym $mod+ctrl+k move up
+bindsym $mod+ctrl+l move right
+bindsym $mod+ctrl+Left move left
+bindsym $mod+ctrl+Down move down
+bindsym $mod+ctrl+Up move up
+bindsym $mod+ctrl+Right move right
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h           resize shrink width 10 px or 10 ppt
+    bindsym j           resize grow height 10 px or 10 ppt
+    bindsym k           resize shrink height 10 px or 10 ppt
+    bindsym l           resize grow width 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left        resize shrink width 10 px or 10 ppt
+    bindsym Down        resize grow height 10 px or 10 ppt
+    bindsym Up          resize shrink height 10 px or 10 ppt
+    bindsym Right       resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+# split in horizontal orientation
+#bindsym $mod+b split v
+# split in vertical orientation 
+#bindsym $mod+v split h
+
+# fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# kill focused window (default: bindsym $mod+Shift+q kill)
+bindsym $mod+c kill
+
+### Floating ###
+
+# toggle tiling / floating
+bindsym $mod+ctrl+f floating toggle
+
+# Mouse+$mod - floating window dragging
+floating_modifier $mod
+
+### Scratchpad ###
+
+# move the currently focused window to the scratchpad
+bindsym $mod+ctrl+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+
+##### Applications #####
+
+# --- General ---
+# Terminal (personally - URxvt)
+bindsym $mod+Return exec i3-sensible-terminal
+
+# j4-dmenu-desktop -- A faster replacement for i3-dmenu-desktop
+# https://github.com/enkore/j4-dmenu-desktop
+# https://aur.archlinux.org/packages/j4-dmenu-desktop-git/
+# bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'DejaVu Sans-10' -l 20"
+
+# --- Network ---
+
+# connman_dmenu -- dmenu frontend for connman network manager
+#bindsym $mod+ctrl+w exec sudo connman_dmenu
+# cmst -- fully-featured Qt GUI for Connman
+#bindsym $mod+ctrl+mod1+w exec cmst
+
+# TODO:wifi-menu -- terminal window with the netcfg official frontend
+#bindsym $mod+n exec sudo wifi-menu
+# netgui -- GUI for netctl, stable but beta
+bindsym $mod+mod1+n exec sudo netgui
+
+# --- File Manager ---
+bindsym $mod+ctrl+m exec thunar
+
+# --- Browser ---
+bindsym $mod+b exec chromium
+bindsym $mod+ctrl+b exec chromium --user-data-dir=~/.config/chromium/Default_Work
+
+# --- Screenshots ---
+bindsym $mod+Print exec xfce4-screenshooter -r
+bindsym $mod+ctrl+Print exec xfce4-screenshooter
+
+##### Extra #####
+
+# shutdown, reboot, lock screen
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l       exec --no-startup-id ~/.i3/bin/i3exit lock, mode "default"
+    bindsym e       exec --no-startup-id ~/.i3/bin/i3exit logout, mode "default"
+    bindsym s       exec --no-startup-id ~/.i3/bin/i3exit suspend, mode "default"
+    bindsym h       exec --no-startup-id ~/.i3/bin/i3exit hibernate, mode "default"
+    bindsym r       exec --no-startup-id ~/.i3/bin/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.i3/bin/i3exit shutdown, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+ctrl+s mode "$mode_system"
+
+# sound control
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ -q
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- -q
+bindsym XF86AudioMute exec amixer -q set Master toggle
+# toggle pause cmus music player
+bindsym XF86AudioPlay exec cmus-remote -u
+
+bindsym XF86HomePage exec chromium http://youtube.com
+bindsym XF86Mail exec chromium https://mail.google.com
+
+##### Debug #####
+
+# reload the configuration file
+bindsym $mod+ctrl+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+ctrl+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+###################
+# Applications
+###################
+
+# autostart apps
+# http://i3wm.org/docs/userguide.html#_automatically_starting_applications_on_i3_startup
+exec xneur
+exec skype
+exec thunar --daemon
+# exec sleep 3 && appname
+
+# auto enable floating mode
+# class is usually 1st letter Capitalize and everything else lowercase
+# use 'xprop' or 'xwininfo' to get window information
+for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floating, move right 450px
+for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
+for_window [title="Task Manager - Chromium"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+# popups
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# assign program to specific workspace
+#assign [class="app_class"] 8: $wx
+
+
+################
+# Todo list
+################
+# i3bar status
+# timeout suspend system
+# Assign apps to workspace https://github.com/jmazzi/dotfiles/blob/master/.i3/config
+# resize+move
+
+
+################
+# Trash
+################
+
+# Dmenu
+
+# start dmenu (a program launcher)
+# bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
