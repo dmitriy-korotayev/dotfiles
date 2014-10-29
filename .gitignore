@@ -1,5 +1,11 @@
 !.gitkeep
-vim/.vim/tmp/
+
 i3/.i3/i3log
-xneur/.xneur/.cache
+
+vim/.vim/bundle/*/
+!vim/.vim/bundle/Vundle.vim/
+vim/.vim/tmp/
+
+xneur/.xneur/.cache/
+xneur/.xneur/languages/
 xneur/.xneur/xneurlog.html

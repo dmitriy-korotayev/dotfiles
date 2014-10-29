@@ -1,0 +1,24 @@
+[submodule "i3/.i3/i3-extras"]
+	path = i3/.i3/i3-extras
+	url = https://github.com/dmitriy-korotayev/i3-extras.git
+
+[submodule "urxvt/.urxvt/dynamic-colors"]
+	path = urxvt/.urxvt/dynamic-colors
+	url = https://github.com/dmitriy-korotayev/dynamic-colors.git
+[submodule "urxvt/.urxvt/dircolors-solarized"]
+	path = urxvt/.urxvt/dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized
+[submodule "urxvt/.urxvt/urxvt-perls"]
+	path = urxvt/.urxvt/urxvt-perls
+	url = https://github.com/muennich/urxvt-perls.git
+
+[submodule "vim/.vim/bundle/Vundle.vim"]
+	path = vim/.vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim.git
+[submodule "vim/.vim/UltiSnips/vim-ultisnips-css"]
+	path = vim/.vim/UltiSnips/vim-ultisnips-css
+	url = https://github.com/rstacruz/vim-ultisnips-css.git
+
+[submodule "zsh/.zsh/oh-my-zsh"]
+	path = zsh/.zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
