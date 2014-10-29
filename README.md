@@ -1,13 +1,13 @@
 My dotfiles
-=========================
+============
 
-# Unobvious prerequisites
+## Unobvious prerequisites
 
 Vim: `make`, `cmake`, `gcc` for `YouCompleteMe` plugin compiling
 
-# Installation
+## Installation
 
-```
+```zsh
 git clone https://github.com/dmitriy-korotayev/dotfiles.git
 cd dotfiles
 git submodule init
@@ -17,25 +17,26 @@ stow -vt ~ [packages]
 
 Vim:
 
-```
+```vim
 :BundleInstall
 ```
 
-# Known issues
+## Known issues
 
 - Backspace works weird on `zsh` when using `ssh` (adds spaces, doesn't remove visually): 
 
 Install `urxvt` or whatever terminal you're using
 
-# Uninstallation
+## Uninstallation
 
-```
+```zsh
 cd [path to dotfiles directory]
 stow -Dt ~ [packages]
 ```
 
-# TODO
+## TODO
 
+- Add some sugar to README
 - Don't set the language in `.zshrc` if it doesn't exist
 - Make vim check if :BundleInstall is done
 - Use local colorscheme in vim
