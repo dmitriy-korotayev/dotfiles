@@ -14,6 +14,7 @@ export LESSHISTFILE=/dev/null # no .lesshst file
 # Shell {{{
 
 xset b off # Disable beeps
+n() { for i in {1..${1:=1}}; do urxvt &; done } # new tab, with repeats count
 # Look {{{
 
 # Theme defaults {{{
@@ -298,7 +299,6 @@ alias ylf="yaourt -Ql"             # '[l]ist [f]iles'     - list all files insta
 # }}}
 # Convenient shortcuts {{{
 
-alias nt='yakuake-session -w "$(pwd)"' # New tab with current directory
 # Wine {{{
 
 alias wine32="WINEARCH=win32 WINEPREFIX=~/.wine32 wine"
