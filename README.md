@@ -13,12 +13,21 @@ cd dotfiles
 git submodule init
 git submodule update
 stow -vt ~ [packages]
+ln -s git/.gitignore ~/.gitignore
 ```
+* we're symlinking .gitignore because it's ignored by default in stow
 
 Vim:
 
 ```vim
 :BundleInstall
+```
+
+Environment variables:
+
+```zsh
+cp zsh/.zshenv.local.sample ~/.zshenv.local
+vim ~/.zshenv.local
 ```
 
 ## Known issues

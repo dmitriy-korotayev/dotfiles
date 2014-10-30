@@ -1,21 +1,21 @@
 [user]
-	name = Dmitriy Korotayev
-	email = korotayev.dmitriy@gmail.com
+    ;name = $GIT_AUTHOR_NAME
+    ;email = $GIT_AUTHOR_EMAIL
 [alias]
-	st = status
-	ci = commit
-	co = checkout
-	br = branch
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
 [core]
-	excludesfile = /home/dmitriy/.gitignore
+    excludesfile = ~/.gitignore
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
 [push]
-	default = simple
+    default = simple
 [http]
-	postBuffer = 256000000 # not 524288000 because Raspberry Pi fails on that
+    postBuffer = 256000000 # not 524288000 because Raspberry Pi fails on that
