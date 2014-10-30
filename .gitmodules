@@ -7,7 +7,7 @@
 	url = https://github.com/dmitriy-korotayev/dynamic-colors.git
 [submodule "urxvt/.urxvt/dircolors-solarized"]
 	path = urxvt/.urxvt/dircolors-solarized
-	url = https://github.com/seebi/dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized.git
 [submodule "urxvt/.urxvt/urxvt-perls"]
 	path = urxvt/.urxvt/urxvt-perls
 	url = https://github.com/muennich/urxvt-perls.git
