@@ -194,20 +194,13 @@ bindsym $mod+Return exec i3-sensible-terminal
 # j4-dmenu-desktop -- A faster replacement for i3-dmenu-desktop
 # https://github.com/enkore/j4-dmenu-desktop
 # https://aur.archlinux.org/packages/j4-dmenu-desktop-git/
-# bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
+#bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
 bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'DejaVu Sans-10' -l 20"
 
 # --- Network ---
 
-# connman_dmenu -- dmenu frontend for connman network manager
-#bindsym $mod+ctrl+w exec sudo connman_dmenu
-# cmst -- fully-featured Qt GUI for Connman
-#bindsym $mod+ctrl+mod1+w exec cmst
-
-# TODO:wifi-menu -- terminal window with the netcfg official frontend
-#bindsym $mod+n exec sudo wifi-menu
-# netgui -- GUI for netctl, stable but beta
-bindsym $mod+mod1+n exec sudo netgui
+# nmcli_dmenu -- dmenu frontend for NetworkManager
+bindsym $mod+i exec nmcli_dmenu
 
 # --- File Manager ---
 bindsym $mod+ctrl+m exec thunar
@@ -265,8 +258,9 @@ bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut
 # autostart apps
 # http://i3wm.org/docs/userguide.html#_automatically_starting_applications_on_i3_startup
 exec xneur
-exec skype
 exec thunar --daemon
+exec skype
+exec nm-applet
 # exec sleep 3 && appname
 
 # auto enable floating mode
