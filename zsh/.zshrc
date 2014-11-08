@@ -14,10 +14,11 @@ export LESSHISTFILE=/dev/null # no .lesshst file
 # }}}
 # Shell {{{
 
-xset b off # Disable beeps
+[[ -z "$SSH_CONNECTION" ]] && xset b off # Disable beeps
 n() { for i in {1..${1:=1}}; do urxvt &; done } # new tab, with repeats count
 # Look {{{
 
+if [[ -z "$SSH_CONNECTION" ]] ; then
 # Theme defaults {{{
 
 # dynamic-colors binaries
@@ -52,6 +53,7 @@ export LESS="-M -R"
 # }}}
 
 # }}}
+fi
 
 cowthink $(fortune) # Cow greeting you on launch
 export PS1="%~ $ " # Status in terminal
@@ -199,7 +201,7 @@ bashcompinit
 if [ -f /etc/bash_completion ]; then source /etc/bash_completion; fi
 
 # Add dynamic-colors completions
-source $HOME/.urxvt/dynamic-colors/completions/dynamic-colors.zsh
+[[ -z "$SSH_CONNECTION" ]] && source $HOME/.urxvt/dynamic-colors/completions/dynamic-colors.zsh
 
 # }}}
 # History file {{{
@@ -284,16 +286,17 @@ alias syd="sudo systemctl disable"
 # }}}
 # Yaourt {{{
 
-alias y="sudo yaourt"              # default action       - Yaourt
-alias ys="sudo yaourt -S"          # '[s]ync'             - install one or more packages
-alias yu="sudo yaourt -Syu"        # '[u]pdate'           - upgrade all packages to their newest version
-alias yua="sudo yaourt -Syua"      # '[u]pdate with [aur]'- upgrade all packages to their newest version + aur
-alias yr="sudo yaourt -Rs"         # '[r]emove'           - uninstall one or more packages
-alias yss="yaourt -Ss"             # '[Ss]earch'           - search for a package using one or more keywords
-alias yi="yaourt -Si"              # '[i]nfo'             - show information about a package
-alias ylo="yaourt -Qdt"            # '[l]ist [o]rphans'   - list all packages which are orphaned
-alias yc="sudo yaourt -Scc"        # '[c]lean cache'      - delete all not currently installed package files
-alias ylf="yaourt -Ql"             # '[l]ist [f]iles'     - list all files installed by a given package
+(( $+commands[yaourt] )) && package_manager='yaourt' || package_manager='pacman'
+alias y="  sudo $package_manager"              # default action       - Yaourt
+alias ys=" sudo $package_manager -S"          # '[s]ync'             - install one or more packages
+alias yu=" sudo $package_manager -Syu"        # '[u]pdate'           - upgrade all packages to their newest version
+alias yua="sudo $package_manager -Syua"       # '[u]pdate with [aur]'- upgrade all packages to their newest version + aur
+alias yr=" sudo $package_manager -Rs"         # '[r]emove'           - uninstall one or more packages
+alias yc=" sudo $package_manager -Scc"        # '[c]lean cache'      - delete all not currently installed package files
+alias yss="$package_manager -Ss"              # '[Ss]earch'           - search for a package using one or more keywords
+alias yi=" $package_manager -Si"              # '[i]nfo'             - show information about a package
+alias ylo="$package_manager -Qdt"             # '[l]ist [o]rphans'   - list all packages which are orphaned
+alias ylf="$package_manager -Ql"              # '[l]ist [f]iles'     - list all files installed by a given package
 
 # }}}
 
