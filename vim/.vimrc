@@ -568,15 +568,15 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Filetypes {{{
 
+nnoremap <leader>fp :set ft=php<CR>
+nnoremap <leader>fr :set ft=ruby<CR>
+nnoremap <leader>fe :set ft=eruby<CR>
+
 nnoremap <leader>fc :set ft=css<CR>
 nnoremap <leader>fh :set ft=html<CR>
 nnoremap <leader>fj :set ft=javascript<CR>
 
-nnoremap <leader>fp :set ft=php<CR>
-nnoremap <leader>fl :set ft=less<CR>
-
-nnoremap <leader>fr :set ft=ruby<CR>
-nnoremap <leader>fe :set ft=eruby<CR>
+nnoremap <leader>fl :set ft=slim<CR>
 nnoremap <leader>fa :set ft=haml<CR>
 nnoremap <leader>fs :set ft=sass<CR>
 nnoremap <leader>fo :set ft=coffee<CR>

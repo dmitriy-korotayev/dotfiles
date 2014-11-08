@@ -15,7 +15,7 @@ export LESSHISTFILE=/dev/null # no .lesshst file
 # Shell {{{
 
 xset b off # Disable beeps
-n() { for i in {1..${1:=1}}; do urxvt &; done } # new tab, with repeats count
+n() { for i in {1..${1:=1}}; do nohup urxvt >/dev/null 2>&1&; done } # new tab, with repeats count
 # Look {{{
 
 # Theme defaults {{{
@@ -53,7 +53,7 @@ export LESS="-M -R"
 
 # }}}
 
-cowthink $(fortune) # Cow greeting you on launch
+cowthink $(fortune -c) # Cow greeting you on launch
 export PS1="%~ $ " # Status in terminal
 # Right-side statusline {{{
 

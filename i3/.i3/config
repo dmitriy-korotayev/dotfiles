@@ -207,7 +207,7 @@ bindsym $mod+ctrl+m exec thunar
 
 # --- Browser ---
 bindsym $mod+b exec chromium
-bindsym $mod+ctrl+b exec chromium --user-data-dir=~/.config/chromium/Default_Work
+bindsym $mod+ctrl+b exec chromium --user-data-dir="$HOME/.config/chromium/Default_Work"
 
 # --- Screenshots ---
 bindsym $mod+Print exec xfce4-screenshooter -r
