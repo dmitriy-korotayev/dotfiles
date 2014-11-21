@@ -230,6 +230,11 @@ if has("multi_byte")
 endif
 
 " }}}
+" redraws {{{
+set ttyfast " u got a fast terminal
+set ttyscroll=3
+set lazyredraw " to avoid scrolling problems
+" }}}
 
 " Use mouse for selection and movement
 set mouse=a

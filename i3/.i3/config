@@ -266,10 +266,16 @@ exec nm-applet
 # auto enable floating mode
 # class is usually 1st letter Capitalize and everything else lowercase
 # use 'xprop' or 'xwininfo' to get window information
+
+# Skype
 for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floating, move right 450px
 for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
+# Chromium
 for_window [title="Task Manager - Chromium"] floating enable
+# Pulse Audio
 for_window [class="(?i)pavucontrol"] floating enable
+# Thunar
+for_window [title="File Operation Progress"] floating enable
 # popups
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
