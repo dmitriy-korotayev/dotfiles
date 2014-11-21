@@ -12,6 +12,7 @@ set secure  " disable unsafe commands in local .vimrc files
 " }}}
 " Load Plugins {{{
 
+let lite = $VIM_LITE == 'true' ? 1 : 0
 " Vundle {{{
 
 filetype off
@@ -52,7 +53,9 @@ Bundle 'tpope/vim-abolish'
 " delimitMate - auto-completion for ({["'`
 Bundle 'Raimondi/delimitMate'
 " UltiSnips - best snippet engine (python-based)
-Bundle 'SirVer/ultisnips'
+if !lite
+    Bundle 'SirVer/ultisnips'
+endif
 " YouCompleteMe: a code-completion engine for
 Bundle 'Valloric/YouCompleteMe'
 
@@ -66,7 +69,9 @@ Bundle 'kien/ctrlp.vim'
 " MRU - Most Recently Used files
 "Bundle 'yegappan/mru'
 " NERDTree - tree explorer
-Bundle 'scrooloose/nerdtree'
+if !lite
+    Bundle 'scrooloose/nerdtree'
+endif
 " :Rename the current file and retain relative path
 Bundle 'danro/rename.vim'
 " BufferLine - buffers in the command line
@@ -142,7 +147,9 @@ Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'rayburgemeestre/phpfolding.vim'
 
 " phpunitqf - PHPUnit runner for Vim
-Bundle 'joonty/vim-phpunitqf'
+if !lite
+    Bundle 'joonty/vim-phpunitqf'
+endif
 
 " }}}
 " Ruby and RoR {{{
@@ -174,13 +181,17 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 
 " omni-completion script for ruby
-Bundle 'vim-scripts/rubycomplete.vim'
+if !lite
+    Bundle 'vim-scripts/rubycomplete.vim'
+endif
 
 " Refactoring tool for Ruby (:R...)
 Bundle 'ecomba/vim-ruby-refactoring'
 
 " A custom text object for selecting ruby blocks
-Bundle 'nelstrom/vim-textobj-rubyblock'
+if !lite
+    Bundle 'nelstrom/vim-textobj-rubyblock'
+endif
 
 " }}}
 " Systemd {{{
@@ -203,7 +214,9 @@ Bundle 'tpope/vim-fugitive'
 " Git runtime files
 Bundle 'tpope/vim-git'
 " Ruscmd - command mode in Russian keyboard layout
-Bundle 'powerman/vim-plugin-ruscmd'
+if !lite
+    Bundle 'powerman/vim-plugin-ruscmd'
+endif
 " Scratch buffer for vim
 Bundle 'duff/vim-scratch'
 " Tagbar - displays tags in a window, ordered by class
