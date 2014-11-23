@@ -26,8 +26,9 @@ Vim:
 Environment variables:
 
 ```zsh
-cp zsh/.zshenv.local.sample ~/.zshenv.local
-vim ~/.zshenv.local
+cd ~
+cp .zshenv.local{.sample,}
+vim .zshenv.local
 ```
 
 ## Known issues
