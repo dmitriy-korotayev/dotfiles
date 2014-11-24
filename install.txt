@@ -1,0 +1,146 @@
+##### Clean installation instructions #####
+##### Work in progress ######
+
+### Preparation ###
+
+su
+mkdir /tmp/install
+cd /tmp/install
+
+## Pacman ##
+
+pacman -Syu
+pacman -S rxvt-unicode
+
+# if need to sort pacman mirrors (not working on arm, manual?)
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+sed -i 's/^# ?Server/Server/' /etc/pacman.d/mirrorlist.backup
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+
+# makepkg, sudo, gcc
+pacman -S base-devel
+pacman -S wget
+
+# Yaourt #
+
+# Add to /etc/pacman.conf ($arch -> arm if rpi)
+
+```
+[archlinuxfr]
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch
+```
+pacman -Sy yaourt
+
+# else
+
+curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar zxvf package-query.tar.gz
+tar zxvf yaourt.tar.gz
+# check for errors below
+cd package-query
+makepkg -si --asroot
+cd ..
+cd yaourt
+makepkg -si --asroot
+cd ..
+
+# Powerpill #
+
+# Add to /etc/pacman.conf 
+# + replace $arch to `any` or `x86_64`, depending on architecture
+[xyne-any]
+SigLevel = Required
+Server = http://xyne.archlinux.ca/repos/xyne
+
+wget http://xyne.archlinux.ca/xyne.pub.3.asc
+pacman-key --add xyne.pub.3.asc
+pacman-key -f 8F173680
+pacman-key --lsign-key 8F173680
+
+yaourt -Sy powerpill
+vim /etc/yaourtrc
+# change
+#PACMAN="pacman"
+# to 
+PACMAN="powerpill"
+
+### System configuration ###
+
+yaourt -S vim
+
+# echo computer_name > /etc/hostname
+ln -sf /usr/share/zoneinfo/Europe/Riga /etc/localtime
+
+yaourt -S ntp
+systemctl enable ntpd.service
+timedatectl set-ntp 1
+timedatectl status
+
+# uncomment locales
+vim /etc/locale.gen
+locale-gen
+# add to locale.conf
+LANG=en_US.UTF-8
+
+yaourt -S zsh
+
+useradd -m -g users -G rfkill,wheel,http,systemd-journal,mpd -s /bin/zsh dmitriy
+passwd dmitriy
+# enter password
+
+visudo
+# add dmitriy ALL=(ALL) ALL
+
+yaourt -S mpd
+gpasswd -a dmitriy mpd
+
+yaourt -S fortune-mod cowsay
+yaourt -S git
+yaourt -S stow
+
+su dmitriy
+cd ~
+rm .bash*
+
+git clone https://github.com/dmitriy-korotayev/dotfiles.git
+cd dotfiles
+git submodule init
+git submodule update
+ln -s git/.gitignore ~/.gitignore
+# stow -vt ~ [packages]
+
+vim
+# :BundleInstall
+
+cd ~
+cp .zshenv.local{.sample,}
+vim .zshenv.local
+
+cd dotfiles
+su
+# stow -vt ~ [packages]
+
+### Post-install ###
+
+## Pacman ##
+# remove unneeded orphaned packages
+yaourt -Rns $(yaourt -Qtdq)
+# remove unused packages
+yaourt -Qen
+# clean package cache
+yaourt -Sc
+# optimize database
+pacman-optimize
+
+### TODO ###
+
+# Convert this to markdown
+# Find pacman package organization solution
+# etcfiles like dotfiles repo
+
+### References ###
+
+# https://wiki.archlinux.org/index.php/installation_guide
+# https://wiki.archlinux.org/index.php/General_recommendations
