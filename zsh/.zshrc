@@ -15,7 +15,6 @@ export LESSHISTFILE=/dev/null # no .lesshst file
 # Shell {{{
 
 [[ -z "$SSH_CONNECTION" ]] && xset b off # Disable beeps
-n() { for i in {1..${1:=1}}; do nohup urxvt >/dev/null 2>&1&; done } # new tab, with repeats count
 # Look {{{
 
 if [[ -z "$SSH_CONNECTION" ]] ; then
@@ -287,12 +286,12 @@ alias syd="sudo systemctl disable"
 # Yaourt {{{
 
 (( $+commands[yaourt] )) && package_manager='yaourt' || package_manager='pacman'
-alias y="  sudo $package_manager"              # default action       - Yaourt
-alias ys=" sudo $package_manager -S"          # '[s]ync'             - install one or more packages
-alias yu=" sudo $package_manager -Syu"        # '[u]pdate'           - upgrade all packages to their newest version
-alias yua="sudo $package_manager -Syua"       # '[u]pdate with [aur]'- upgrade all packages to their newest version + aur
-alias yr=" sudo $package_manager -Rs"         # '[r]emove'           - uninstall one or more packages
-alias yc=" sudo $package_manager -Scc"        # '[c]lean cache'      - delete all not currently installed package files
+alias y="  $package_manager"                  # default action       - Yaourt
+alias ys=" $package_manager -S"               # '[s]ync'             - install one or more packages
+alias yu=" $package_manager -Syu"             # '[u]pdate'           - upgrade all packages to their newest version
+alias yua="$package_manager -Syua"            # '[u]pdate with [aur]'- upgrade all packages to their newest version + aur
+alias yr=" $package_manager -Rs"              # '[r]emove'           - uninstall one or more packages
+alias yc=" $package_manager -Scc"             # '[c]lean cache'      - delete all not currently installed package files
 alias yss="$package_manager -Ss"              # '[Ss]earch'           - search for a package using one or more keywords
 alias yi=" $package_manager -Si"              # '[i]nfo'             - show information about a package
 alias ylo="$package_manager -Qdt"             # '[l]ist [o]rphans'   - list all packages which are orphaned
@@ -306,7 +305,7 @@ alias ylf="$package_manager -Ql"              # '[l]ist [f]iles'     - list all 
 # Wine {{{
 
 alias wine32="WINEARCH=win32 WINEPREFIX=~/.wine32 wine"
-function photoshop() { eval "WINEARCH=win32 WINEPREFIX=~/.wine32 wine 'C:\\Program Files\\Adobe\\Adobe Photoshop CS6\\Photoshop.exe' Z:$(readlink -f $1)" }
+function photoshop() { eval "WINEARCH=win32 WINEPREFIX=~/.wine32 wine 'C:\\Program Files\\Photoshop\\Photoshop.exe' Z:$(readlink -f $1)" }
 # }}}
 # Sudo apps and actions {{{
 
@@ -358,7 +357,14 @@ alias openports='ss --all --numeric --processes --ipv4 --ipv6'
 # }}}
 # Functions (more complex than aliases) {{{
 
-function mkcd { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
+# Open thunar in current directory, optional repeat count
+t() { for i in {1..${1:=1}}; do nohup thunar . >/dev/null 2>&1&; done }
+# Open urxvt in current directory, optional repeat count
+n() { for i in {1..${1:=1}}; do nohup urxvt >/dev/null 2>&1&; done }
+
+# mkdir -p + cd
+mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
+
 # Workarounds (app restarts, etc..) {{{
 
 function rekde { rm /var/tmp/kdecache-dmitriy/plasma_theme_default_v2.0.kcache; kquitapp plasma-desktop; sleep 1; plasma-desktop; }
