@@ -54,12 +54,12 @@ Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'tpope/vim-abolish'
 " delimitMate - auto-completion for ({["'`
 Bundle 'Raimondi/delimitMate'
-" UltiSnips - best snippet engine (python-based)
 if !lite
+    " UltiSnips - best snippet engine (python-based)
     Bundle 'SirVer/ultisnips'
+    " YouCompleteMe: a code-completion engine for
+    Bundle 'Valloric/YouCompleteMe'
 endif
-" YouCompleteMe: a code-completion engine for
-Bundle 'Valloric/YouCompleteMe'
 
 " }}}
 " Files and their containers {{{
@@ -252,9 +252,9 @@ endif
 
 " }}}
 " redraws {{{
-set ttyfast " u got a fast terminal
-set ttyscroll=3
-set lazyredraw " to avoid scrolling problems
+"set ttyfast " u got a fast terminal
+"set ttyscroll=3
+"set lazyredraw " to avoid scrolling problems
 " }}}
 
 " }}}
