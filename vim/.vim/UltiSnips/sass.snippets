@@ -1,3 +1,4 @@
+# General usage
 snippet e "@extend"
 @extend ${2:%}${1:}
 endsnippet
@@ -5,27 +6,29 @@ snippet i "@import"
 @import '${1:}'
 endsnippet
 
-# Compass
-snippet an "animation: ___ ___"
-+animation(${1:name} ${2:300ms linear infinite})
+# Scut
+snippet sir
+@extend %scut-image-replace
 endsnippet
-snippet s
-+${1:icon}-sprite(${2:some_icon})
+snippet sirm
++scut-image-replace
 endsnippet
-snippet sw
-width: ${1:icon}-sprite-width(${2:some_icon})
+snippet scf
+@extend %scut-clearfix
 endsnippet
-snippet sh
-height: ${1:icon}-sprite-height(${2:some_icon})
-endsnippet
-snippet sib
-display: inline-block
-+${1:icon}-sprite(${2:some_icon})
-width: $1-sprite-width($2)
-height: $1-sprite-height($2)
+snippet scfm
++scut-clearfix
 endsnippet
 
-# CSS3
+# My bootstrap
+snippet ed "@extend %debug"
+@extend %debug
+endsnippet
+snippet cbh
+$c-background--h
+endsnippet
+
+# CSS3 (TODO: sort)
 snippet bgclip "background-clip: padding-box"
 background-clip: padding-box
 endsnippet
@@ -95,16 +98,6 @@ endsnippet
 snippet usn "user-select: none"
 user-select: none
 endsnippet
-
-# MVCSS
-snippet ed "@extend %debug"
-@extend %debug
-endsnippet
-snippet hc
-$highlight-color
-endsnippet
-
-# Projects
 
 # Sort
 snippet clip "clip"
@@ -212,8 +205,14 @@ endsnippet
 snippet br0 "border-right: 0"
 border-right: 0
 endsnippet
+snippet bc "border-color: ___"
+border-color: ${1:}
+endsnippet
 snippet bg "background: ___"
 background: ${1:#fff url(image.png) no-repeat left top fixed}
+endsnippet
+snippet bgn "background: none"
+background: none
 endsnippet
 snippet bgp "background-position: ___"
 background-position: ${1:x y}
@@ -363,6 +362,9 @@ endsnippet
 snippet fw3 "font-weight: 300"
 font-weight: 300
 endsnippet
+snippet fw4 "font-weight: 400"
+font-weight: 400
+endsnippet
 snippet fw5 "font-weight: 500"
 font-weight: 500
 endsnippet
@@ -443,6 +445,9 @@ overflow: hidden
 endsnippet
 snippet oa "overflow: auto"
 overflow: auto
+endsnippet
+snippet ov "overflow: visible"
+overflow: visible
 endsnippet
 snippet oxs "overflow-x: scroll"
 overflow-x: scroll
@@ -588,9 +593,6 @@ snippet :h ":hover" !i
 :hover
 endsnippet
 
-snippet cf "+clearfix"
-+clearfix
-endsnippet
 snippet @big "@media (min-width: 1180px) // big desktop"
 @media (min-width: 1180px) { // big desktop
 endsnippet
@@ -610,4 +612,26 @@ snippet ul2b "ul -> usual div"
 margin: 0 
 padding: 0
 list-style-type: none
+endsnippet
+
+# Reorganize
+
+# Compass
+snippet an "animation: ___ ___"
++animation(${1:name} ${2:300ms linear infinite})
+endsnippet
+snippet s
++${1:icon}-sprite(${2:some_icon})
+endsnippet
+snippet sw
+width: ${1:icon}-sprite-width(${2:some_icon})
+endsnippet
+snippet sh
+height: ${1:icon}-sprite-height(${2:some_icon})
+endsnippet
+snippet sib
+display: inline-block
++${1:icon}-sprite(${2:some_icon})
+width: $1-sprite-width($2)
+height: $1-sprite-height($2)
 endsnippet

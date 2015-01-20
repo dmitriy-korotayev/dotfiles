@@ -14,27 +14,27 @@ snippet fl "form > label"
 %label( for="${1:name}" ${3:})${2: text}
 endsnippet
 snippet fit "form > input[type=text]"
-%input( type="text" name="${1:}" id="`!p 
+%input( type="text" name="${1:}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" placeholder="${2:}" value="${3:}" )
 endsnippet
 snippet ft "form > textarea"
-%textarea( name="${1:}" id="`!p 
+%textarea( name="${1:}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" placeholder="${2:}" value="${3:}" )
 endsnippet
 snippet fis "form > input [type=submit]"
-%input( type="submit" name="${2:submit}" id="`!p 
+%input( type="submit" name="${2:submit}" id="`!p
 snip.rv = t[2].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" value="${1:}" )
 endsnippet
 snippet fic "form > input [type=checkbox]"
-%input( type="checkbox" name="${1:}" id="`!p 
+%input( type="checkbox" name="${1:}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_') + '_' + t[2]
 `" value="${2:1}" )/$0
 endsnippet
 snippet fs "form > select"
-%select( name="${1:submit}" id="`!p 
+%select( name="${1:submit}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" )
   %option( value="${8:1}" ${5:selected})${2: Value 1}
@@ -79,17 +79,17 @@ endsnippet
 #%label( for="${1:name}" ${3:})= tr('${2:text}')
 #endsnippet
 #snippet fitt "form > input[type=text] with tr"
-#%input( type="text" name="${1:}" id="`!p 
+#%input( type="text" name="${1:}" id="`!p
 #snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 #`" placeholder=tr('${2:}') value="${3:}" )
 #endsnippet
 #snippet fist "form > input [type=submit] with tr"
-#%input( type="submit" name="${2:submit}" id="`!p 
+#%input( type="submit" name="${2:submit}" id="`!p
 #snip.rv = t[2].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 #`" value=tr('${1:}') )
 #endsnippet
 #snippet fst "form > submit with tr"
-#%select( name="${1:submit}" id="`!p 
+#%select( name="${1:submit}" id="`!p
 #snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 #`" )
 #  %option( value="${8:1}" ${5:selected})= tr('${2:Value 1}')
