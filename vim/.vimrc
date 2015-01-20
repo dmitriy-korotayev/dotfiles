@@ -18,7 +18,7 @@ let lite = $VIM_LITE == 'true' ? 1 : 0
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
-" let Vundle manage Vundle - required! 
+" let Vundle manage Vundle - required!
 Bundle 'gmarik/Vundle.vim'
 
 " }}}
@@ -27,6 +27,8 @@ Bundle 'gmarik/Vundle.vim'
 
 " Best colorscheme
 Bundle 'altercation/vim-colors-solarized'
+" Better whitespace highlighting
+Bundle 'ntpeters/vim-better-whitespace'
 
 " }}}
 " Text {{{
@@ -62,10 +64,14 @@ Bundle 'Valloric/YouCompleteMe'
 " }}}
 " Files and their containers {{{
 
+" BufferLine - buffers in the command line
+Bundle 'bling/vim-bufferline'
 " :BufOnly - leave only current buffer
 Bundle 'vim-scripts/BufOnly.vim'
 " CtrlP - full path fuzzy file, buffer, mru, tag finder
 Bundle 'kien/ctrlp.vim'
+" :Greplace - replacing pattern across multiple files
+Bundle 'vim-scripts/Greplace.vim'
 " MRU - Most Recently Used files
 "Bundle 'yegappan/mru'
 " NERDTree - tree explorer
@@ -74,8 +80,6 @@ if !lite
 endif
 " :Rename the current file and retain relative path
 Bundle 'danro/rename.vim'
-" BufferLine - buffers in the command line
-Bundle 'bling/vim-bufferline'
 " TagmaBufMgr - best buffer manager
 "Bundle 'JessicaKMcIntosh/TagmaBufMgr'
 
@@ -85,7 +89,7 @@ Bundle 'bling/vim-bufferline'
 " CSS and LessCSS {{{
 
 " LessCSS syntax
-Bundle 'dmitriy-korotayev/vim-less'
+"Bundle 'dmitriy-korotayev/vim-less'
 " CSS3 syntax
 Bundle 'hail2u/vim-css3-syntax'
 
@@ -162,17 +166,17 @@ Bundle 'tpope/vim-rails'
 " Gems and related {{{
 
 " Haml and Sass runtime files
-Bundle 'tpope/vim-haml'         
+Bundle 'tpope/vim-haml'
 " Slim runtime files
-Bundle 'slim-template/vim-slim' 
+Bundle 'slim-template/vim-slim'
 " CoffeeScript runtime files
 Bundle 'kchmck/vim-coffee-script'
 
 " Bundler support
-"Bundle 'tpope/vim-bundler'      
+"Bundle 'tpope/vim-bundler'
 
 " Cucumber runtime files and CTRL-] on a step to definition
-Bundle 'tpope/vim-cucumber'     
+Bundle 'tpope/vim-cucumber'
 
 " }}}
 
@@ -232,6 +236,10 @@ Bundle 'xolox/vim-misc'
 
 " Common {{{
 
+" Use mouse for selection and movement
+set mouse=a
+set shell=/bin/bash
+
 " utf-8 {{{
 
 if has("multi_byte")
@@ -248,10 +256,6 @@ set ttyfast " u got a fast terminal
 set ttyscroll=3
 set lazyredraw " to avoid scrolling problems
 " }}}
-
-" Use mouse for selection and movement
-set mouse=a
-set shell=/bin/bash
 
 " }}}
 " Appearance {{{
@@ -393,6 +397,7 @@ set wig+=lib
 " }}}
 " Files and their containers {{{
 
+set bkc=yes " cp a file on backup instead of mv
 set ar " Read file automatically on modification outside
 
 " Windows {{{
@@ -472,7 +477,7 @@ vnoremap ; :
 " Make Q useful and avoid the confusing Ex mode.
 noremap Q <nop>
 
-"noremap  <F1> <nop> 
+"noremap  <F1> <nop>
 
 " }}}
 
@@ -574,7 +579,7 @@ vnoremap <leader>y "+ygv
 " }}}
 
 " Clean trailing whitespace
-nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+"nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " }}}
 
@@ -727,7 +732,7 @@ function! GetImprovedIndentFold(lnum)
 
     " If line is empty and previous is not, include it in fold,
     " relative to the next non-blank line's indentation
-    if getline(a:lnum) =~? '\v^\s*$' 
+    if getline(a:lnum) =~? '\v^\s*$'
         if getline(a:lnum - 1) =~? '\v^\s*\S.*'
             return next_indent + 1
         endif
@@ -814,7 +819,7 @@ augroup END
 " }}}
 " Haml {{{
 
-au Filetype haml setlocal sw=2 ts=2 sts=2 
+au Filetype haml setlocal sw=2 ts=2 sts=2
 "fdm=indent
 
 " }}}
@@ -890,13 +895,18 @@ augroup ft_ruby
     au BufNewFile,BufRead *.prawn set filetype=ruby
     au Filetype ruby setlocal fdm=syntax sw=2 ts=2 sts=2
     au Filetype eruby setlocal sw=4 ts=4 sts=4
-    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
     autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
     "au BufWritePost *.rb !ruby -cw %
     " File function - ruby hash syntax
     map <leader>ffrh :%s/:\(\w*\)\(\s*\)=> /\1:\2/g
 augroup END
+
+" }}}
+" Sass {{{
+
+au Filetype sass setlocal sw=2 ts=2 sts=2 fdm=expr fde=GetImprovedIndentFold(v:lnum)
 
 " }}}
 " SH {{{
@@ -907,10 +917,10 @@ augroup ft_sh
 augroup END
 
 " }}}
-" Sass {{{
-
-au Filetype sass setlocal sw=2 ts=2 sts=2 fdm=expr fde=GetImprovedIndentFold(v:lnum)
-
+" Silverstripe {{{
+augroup ft_ss
+    au BufNewFile,BufRead *.ss setlocal ft=html
+augroup END
 " }}}
 " Snippets {{{
 
@@ -938,6 +948,16 @@ augroup END
 
 au BufRead,BufNewFile .workscript set filetype=sh
 au BufRead,BufNewFile .workscript setlocal sw=2 ts=2 sts=2
+
+" }}}
+" Multiple {{{
+
+autocmd FileType css nnoremap <buffer> <leader>ffcc :call CSScomb()<CR>
+autocmd FileType sass,scss nnoremap <buffer> <leader>ffsc :call CSScomb()<CR>
+function! CSScomb()
+  execute "silent !csscomb " . expand('%')
+  redraw!
+endfunction
 
 " }}}
 
@@ -1024,6 +1044,16 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " }}}
+" StripWhitespace {{{
+
+nnoremap <leader>w :StripWhitespace<cr>
+
+" }}}
+" Vdebug {{{
+
+let g:vdebug_options = {"port":9001}
+
+" }}}
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
@@ -1031,11 +1061,6 @@ let g:syntastic_check_on_open = 1
 let syntastic_mode_map = { 'passive_filetypes': ['html','cucumber', 'ruby', 'php'] }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
-
-" }}}
-" Vdebug {{{
-
-let g:vdebug_options = {"port":9001}
 
 " }}}
 " Tabular {{{
@@ -1070,7 +1095,12 @@ let g:TagmaBufMgrMapCTab    = 0
 
 let g:snips_author='Dmitriy Korotayev <korotayev.dmitriy@gmail.com>'
 let g:UltiSnipsExpandTrigger="<c-e>"
-    
+
+" }}}
+" Vdebug {{{
+
+let g:vdebug_options = {"port":9001}
+
 " }}}
 " YouCompleteMe {{{
 
