@@ -68,7 +68,7 @@ function git_current_branch {
 }
 git_status() {
     # If not an ssh mountpoint (this would be too slow to respond)
-    if [[ ! -n "$(mount | grep "$(pwd -P) type fuse\.sshfs" )" ]] then 
+    if [[ ! -n "$(mount | grep "$(pwd -P) type fuse\.sshfs" )" ]] then
         echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(git_current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
     fi
 }
@@ -182,7 +182,7 @@ zstyle ':completion:*:hosts' hosts $_ssh_config
 # Typing and completion {{{
 
 # cd, writing only path to directory
-setopt autocd 
+setopt autocd
 # extended globbing (regex-like, ex. filename.{png,jpg})
 setopt extendedglob
 
@@ -234,6 +234,11 @@ export PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin:$HOME/.gem/ruby/2.1.0/bin
 #export PHPBREW_SET_PROMPT=1
 
 # }}}
+# Grunt {{{
+
+eval "$(grunt --completion=zsh)"
+
+# }}}
 
 # }}}
 # Aliases (options and variations for existing, convenient shortcuts) {{{
@@ -274,7 +279,7 @@ alias sll='sudo ls -hFla --color=auto'
 # }}}
 # Systemctl {{{
 
-alias sy="sudo systemctl"      
+alias sy="sudo systemctl"
 alias sys="sudo systemctl start"
 alias sysp="sudo systemctl stop"
 alias syst="sudo systemctl status"
@@ -381,7 +386,7 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 
 # ref. 1. solarized theme ANSI escape color codes {{{
 
-# Base colors: 
+# Base colors:
 # see http://ethanschoonover.com/solarized
 
 # ANSI escape color codes:
@@ -393,23 +398,23 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 #
 #   ANSI Color code       Solarized
 #   ~~~~~~~~~~~~~~~       ~~~~~~~~~
-#   00    none                     
+#   00    none
 #   30    black           base2
-#   01;30 bright black    base3    
-#   31    red             red      
-#   01;31 bright red      orange   
-#   32    green           green    
-#   01;32 bright green    base1   
-#   33    yellow          yellow   
-#   01;33 bright yellow   base0   
-#   34    blue            blue     
-#   01;34 bright blue     base00    
-#   35    magenta         magenta  
-#   01;35 bright magenta  violet   
-#   36    cyan            cyan     
-#   01;36 bright cyan     base01    
+#   01;30 bright black    base3
+#   31    red             red
+#   01;31 bright red      orange
+#   32    green           green
+#   01;32 bright green    base1
+#   33    yellow          yellow
+#   01;33 bright yellow   base0
+#   34    blue            blue
+#   01;34 bright blue     base00
+#   35    magenta         magenta
+#   01;35 bright magenta  violet
+#   36    cyan            cyan
+#   01;36 bright cyan     base01
 #   37    white           base02
-#   01;37 bright white    base03    
+#   01;37 bright white    base03
 #
 # * for background, use '4' instead of '3' as a first digit
 #                   or '10' instead of '01;3' for bright type
