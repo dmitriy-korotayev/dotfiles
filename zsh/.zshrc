@@ -372,9 +372,10 @@ mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
 
 # Workarounds (app restarts, etc..) {{{
 
+function rerc { source ~/.zshrc }
 function rekde { rm /var/tmp/kdecache-dmitriy/plasma_theme_default_v2.0.kcache; kquitapp plasma-desktop; sleep 1; plasma-desktop; }
 function remouse { sudo modprobe -r psmouse; sudo modprobe psmouse; }
-function rexneur { pkill xneur; xneur & }
+function rexneur { pkill xneur && xneur & }
 function repacman { sudo rm /var/lib/pacman/db.lck; }
 
 # }}}
