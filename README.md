@@ -4,6 +4,8 @@ My dotfiles
 ## Unobvious prerequisites
 
 Vim: `make`, `cmake`, `gcc` for `YouCompleteMe` plugin compiling
+i3: `pulseaudio-ctl` for volume control
+*and anything else I forgot*
 
 ## Installation
 

@@ -233,11 +233,11 @@ mode "$mode_system" {
 bindsym $mod+ctrl+s mode "$mode_system"
 
 # sound control
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5%
-bindsym XF86AudioMute exec ~/.i3/bin/toggle-mute
+bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
+bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
+bindsym XF86AudioMute exec pulseaudio-ctl mute
 # toggle pause cmus music player
-bindsym XF86AudioPlay exec cmus-remote -u
+#bindsym XF86AudioPlay exec cmus-remote -u
 
 bindsym XF86HomePage exec chromium http://youtube.com/feed/subscriptions
 bindsym XF86Mail exec chromium https://mail.google.com
