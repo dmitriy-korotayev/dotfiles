@@ -19,3 +19,5 @@
     default = simple
 [http]
     postBuffer = 256000000 # not 524288000 because Raspberry Pi fails on that
+[init]
+	templatedir = /home/dmitriy/.git-templates
