@@ -33,30 +33,25 @@ endsnippet
 snippet fl "form > label"
 label for="${1:name}"${3:} ${2: text}
 endsnippet
-snippet fit "form > input[type=text]"
-input type="text" name="${1:}" id="`!p
+snippet fi "form > input"
+input name="${1:}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" placeholder="${2:}" value="${3:}"
 endsnippet
-snippet fip "form > input[type=password]"
-input type="password" name="${1:}" id="`!p
-snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_') + '_' + t[2]
-`" value="${2:1}"
+snippet fiu "form > input[type=unique(password/file)]"
+input type="${1:password}" name="${2:}" id="`!p
+snip.rv = t[2].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
+`"
+endsnippet
+snippet fit "form > input[type=toggleable(checkbox/radio)]"
+input type="${1:checkbox}" name="${2:}" id="`!p
+snip.rv = t[2].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_') + '_' + t[3]
+`" value="${3:1}"
 endsnippet
 snippet ft "form > textarea"
 textarea name="${1:}" id="`!p
 snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_')
 `" placeholder="${2:}" value="${3:}"
-endsnippet
-snippet fic "form > input [type=checkbox]"
-input type="checkbox" name="${1:}" id="`!p
-snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_') + '_' + t[2]
-`" value="${2:1}"
-endsnippet
-snippet fir "form > input [type=radio]"
-input type="radio" name="${1:}" id="`!p
-snip.rv = t[1].replace('[]','').replace('][','_').replace('[','_').replace(']','').replace(' ','_') + '_' + t[2]
-`" value="${2:1}"
 endsnippet
 snippet fs "form > select"
 select name="${1:submit}" id="`!p

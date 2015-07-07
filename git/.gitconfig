@@ -6,6 +6,7 @@
     ci = commit
     co = checkout
     br = branch
+	slog = log --oneline
 [core]
     excludesfile = ~/.gitignore
 [color]
