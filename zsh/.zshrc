@@ -8,6 +8,8 @@ export EDITOR="vim"
 
 # i3 binaries
 export PATH="$HOME/.i3/bin:$PATH"
+# user-level global node modules
+export PATH="$HOME/.node_modules/bin:$PATH"
 
 export LESSHISTFILE=/dev/null # no .lesshst file
 

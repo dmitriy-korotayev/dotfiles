@@ -1,6 +1,7 @@
 !.gitkeep
 
 i3/.i3/i3log
+i3/.config
 
 vim/.vim/bundle/*/
 !vim/.vim/bundle/Vundle.vim/
