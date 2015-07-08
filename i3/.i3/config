@@ -34,9 +34,11 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # font pango:DejaVu Sans Mono 10
 
 ##### Bar #####
+
 bar {
     status_command i3status
 }
+
 
 ###################
 # Feel
@@ -44,6 +46,7 @@ bar {
 
 # turn off the screen after 10m
 exec --no-startup-id xset dpms 600
+
 
 ###################
 # Keybindings
@@ -58,13 +61,18 @@ set $mod Mod4
 set $w1 1: web
 set $w2 2: work
 set $w3 3: work2
-set $w4 4
-set $w5 5
+set $w4 4: project
+set $w5 5: project2
 set $w6 6
 set $w7 7
-set $w8 8
-set $w9 9
+set $w8 8: music
+set $w9 9: tmp
 set $w10 10: external
+workspace "$w1"  output LVDS
+workspace "$w2"  output LVDS
+workspace "$w3"  output DFP1
+workspace "$w4"  output LVDS
+workspace "$w5"  output DFP1
 workspace "$w10" output DFP1
 
 # switch to workspace
@@ -214,7 +222,19 @@ bindsym $mod+ctrl+b exec chromium --user-data-dir="$HOME/.config/chromium/Defaul
 bindsym $mod+Print exec xfce4-screenshooter -r
 bindsym $mod+ctrl+Print exec xfce4-screenshooter
 
+
 ##### Extra #####
+
+# sound control
+bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
+bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
+bindsym XF86AudioMute exec pulseaudio-ctl mute
+# toggle pause cmus music player
+#bindsym XF86AudioPlay exec cmus-remote -u
+
+# other media keys
+bindsym XF86HomePage exec chromium http://youtube.com/feed/subscriptions
+bindsym XF86Mail exec chromium https://mail.google.com
 
 # shutdown, reboot, lock screen
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -232,20 +252,29 @@ mode "$mode_system" {
 }
 bindsym $mod+ctrl+s mode "$mode_system"
 
-# sound control
-bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
-bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
-bindsym XF86AudioMute exec pulseaudio-ctl mute
-# toggle pause cmus music player
-#bindsym XF86AudioPlay exec cmus-remote -u
+# toggle(shift) on (b)attery behavior (e.g. suspend on lid close)
+#bindsym $mod+shift+b
 
-bindsym XF86HomePage exec chromium http://youtube.com/feed/subscriptions
-bindsym XF86Mail exec chromium https://mail.google.com
+
+# work
+set $mode_work Work (c) toggle cable (a) switch autorandr to work profile
+mode "$mode_work" {
+    bindsym c           exec --no-startup-id ~/Island/cable.zsh, mode "default"
+    bindsym a           exec --no-startup-id autorandr -l work, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+ctrl+w mode "$mode_work"
+
 
 ##### Debug #####
 
-# reload the configuration file
-bindsym $mod+ctrl+c reload
+# toggle compton
+bindsym $mod+ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send -i computer 'Compton enabled') || (notify-send -i display 'Compton disabled' && pkill compton)
+# reload [shift] the configuration file
+bindsym $mod+shift+c reload
 # edit the configuration file
 bindsym $mod+Mod1+c exec i3-sensible-terminal -e zsh -i -c "vim ~/.i3/config"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -258,8 +287,10 @@ bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut
 # Applications
 ###################
 
-# autostart apps
+# --- Autostart apps ---
+
 # http://i3wm.org/docs/userguide.html#_automatically_starting_applications_on_i3_startup
+
 exec xneur
 exec thunar --daemon
 
@@ -267,6 +298,8 @@ exec skype
 exec nm-applet
 exec dropbox start -i
 # exec sleep 3 && appname
+
+# --- App rules ---
 
 # auto enable floating mode
 # class is usually 1st letter Capitalize and everything else lowercase

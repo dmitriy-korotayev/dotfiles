@@ -13,6 +13,12 @@ export PATH="$HOME/.node_modules/bin:$PATH"
 
 export LESSHISTFILE=/dev/null # no .lesshst file
 
+# Work {{{
+
+source ~/Island/rc.zsh
+
+# }}}
+
 # }}}
 # Shell {{{
 
@@ -224,10 +230,9 @@ SAVEHIST=10000
 # }}}
 # Package-specific {{{
 
-# Ruby {{{
+# Grunt {{{
 
-export GEM_HOME=~/.gem/ruby/2.1.0
-export PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin:$HOME/.gem/ruby/2.1.0/bin
+eval "$(grunt --completion=zsh)"
 
 # }}}
 # PHPBrew {{{
@@ -236,9 +241,16 @@ export PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin:$HOME/.gem/ruby/2.1.0/bin
 #export PHPBREW_SET_PROMPT=1
 
 # }}}
-# Grunt {{{
+# Ruby {{{
 
-eval "$(grunt --completion=zsh)"
+#export GEM_HOME=~/.gem/ruby/2.2.0
+export PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin:$HOME/.gem/ruby/2.1.0/bin:$HOME/.gem/ruby/2.2.0/bin
+
+# }}}
+# RVM {{{
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin"
 
 # }}}
 
@@ -288,6 +300,7 @@ alias syst="sudo systemctl status"
 alias syr="sudo systemctl restart"
 alias sye="sudo systemctl enable"
 alias syd="sudo systemctl disable"
+alias sydr="sudo systemctl daemon-reload"
 
 # }}}
 # Yaourt {{{
@@ -372,10 +385,12 @@ n() { for i in {1..${1:=1}}; do nohup urxvt >/dev/null 2>&1&; done }
 # mkdir -p + cd
 mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
 
+duc() { find -maxdepth ${1:=1} -type d | while read -r dir; do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done }
+
 # Workarounds (app restarts, etc..) {{{
 
 function rerc { source ~/.zshrc }
-function rekde { rm /var/tmp/kdecache-dmitriy/plasma_theme_default_v2.0.kcache; kquitapp plasma-desktop; sleep 1; plasma-desktop; }
+function repulse { pulseaudio -k && pulseaudio --start }
 function remouse { sudo modprobe -r psmouse; sudo modprobe psmouse; }
 function rexneur { pkill xneur && xneur & }
 function repacman { sudo rm /var/lib/pacman/db.lck; }

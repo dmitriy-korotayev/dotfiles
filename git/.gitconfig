@@ -8,6 +8,7 @@
     ci = commit
     co = checkout
     br = branch
+	slog = log --oneline
 [core]
     excludesfile = ~/.gitignore
 [color]
@@ -21,3 +22,5 @@
     default = simple
 [http]
     postBuffer = 256000000 # not 524288000 because Raspberry Pi fails on that
+[init]
+	templatedir = /home/dmitriy/.git-templates
