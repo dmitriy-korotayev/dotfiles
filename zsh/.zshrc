@@ -1,6 +1,7 @@
 # Environment {{{
 
 [[ -f ~/.zshenv ]] && source ~/.zshenv
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 export LANG="en_US.utf-8"
 export LC_ALL="en_US.utf-8"
 export BROWSER="google-chrome:chromium"
@@ -12,12 +13,6 @@ export PATH="$HOME/.i3/bin:$PATH"
 export PATH="$HOME/.node_modules/bin:$PATH"
 
 export LESSHISTFILE=/dev/null # no .lesshst file
-
-# Work {{{
-
-source ~/Island/rc.zsh
-
-# }}}
 
 # }}}
 # Shell {{{
@@ -443,4 +438,7 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 # https://github.com/clvv/dotfiles/blob/master/.zsh/completion.zsh
 # }}}
 
+# }}}
+# Server-specific {{{
+[[ -f ~/rc.zsh ]] && source ~/rc.zsh
 # }}}
