@@ -2,10 +2,10 @@
 # To use, cp this file as ~/.zshenv.local and change variables below
 ENV_VARS=(
     # You can manage Git variables:
-    #GIT_AUTHOR_NAME         "John Doe"
-    #GIT_AUTHOR_EMAIL        email@example.org
-    #GIT_COMMITTER_NAME      "John Doe"
-    #GIT_COMMITTER_EMAIL     email@example.org
+    GIT_AUTHOR_NAME         "Dmitriy Korotayev"
+    GIT_AUTHOR_EMAIL        korotayev.dmitriy@gmail.com
+    GIT_COMMITTER_NAME      "Dmitriy Korotayev"
+    GIT_COMMITTER_EMAIL     korotayev.dmitriy@gmail.com
     # Or set Vim in a 'lite' mode for it to use less resources
     #VIM_LITE                "true"
 )

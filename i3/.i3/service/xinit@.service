@@ -1,0 +1,17 @@
+[Unit]
+Description=startx for user %i
+After=x@vt7.service systemd-user-sessions.service
+Wants=x@vt7.service
+Conflicts=getty@tty7.service
+
+[Service]
+User=%i
+TTYPath=/dev/tty7
+PAMName=login
+Environment=DISPLAY=:0
+WorkingDirectory=/home/%I
+Nice=0
+ExecStart=/bin/bash -l -c "cd; startx >/dev/null 2>&1"
+
+[Install]
+WantedBy=graphical.target

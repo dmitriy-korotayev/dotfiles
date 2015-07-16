@@ -351,11 +351,11 @@ set bs=indent,eol,start " Backspace deletes tabs, eol and start of insert
 
 set ai    " Auto-indentation
 
-set sw=4  " Number of spaces for >>,<<,(auto)indentation
+set sw=2  " Number of spaces for >>,<<,(auto)indentation
 set sr    " Round indentation, disallow extra spaces
-set ts=4  " Number of spaces for <Tab>
+set ts=2  " Number of spaces for <Tab>
 set et    " Use spaces for <Tab> in insert mode
-"set sts=4 " Number of spaces for <Tab> in insert mode
+"set sts=2 " Number of spaces for <Tab> in insert mode
 set sta   " Allows deletion of indentation inserted at the beginning of line, not a single space
 
 " }}}
@@ -793,7 +793,7 @@ augroup ft_css
 
     au BufNewFile,BufRead *.less setlocal filetype=less
 
-    au Filetype less,css,scss setlocal fdm=marker fmr={,} sw=4 ts=4 sts=4
+    au Filetype less,css,scss setlocal fdm=marker fmr={,} sw=2 ts=2 sts=2
 
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype less,css setlocal iskeyword+=-

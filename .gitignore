@@ -1,10 +1,12 @@
 !.gitkeep
 
 i3/.i3/i3log
+i3/.config
 
 vim/.vim/bundle/*/
 !vim/.vim/bundle/Vundle.vim/
 vim/.vim/tmp/
+vim/.vim/.netrwhist
 
 xneur/.xneur/.cache/
 xneur/.xneur/languages/

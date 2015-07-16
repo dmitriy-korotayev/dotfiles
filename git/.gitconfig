@@ -1,11 +1,14 @@
 [user]
     ;name = $GIT_AUTHOR_NAME
     ;email = $GIT_AUTHOR_EMAIL
+    name = Dmitriy Korotayev
+    email = korotayev.dmitriy@gmail.com
 [alias]
     st = status
     ci = commit
     co = checkout
     br = branch
+	slog = log --oneline
 [core]
     excludesfile = ~/.gitignore
 [color]
@@ -19,6 +22,5 @@
     default = simple
 [http]
     postBuffer = 256000000 # not 524288000 because Raspberry Pi fails on that
-[user]
-	email = korotayev.dmitriy@gmail.com
-	name = Dmitriy Korotayev
+[init]
+	templatedir = /home/dmitriy/.git-templates
