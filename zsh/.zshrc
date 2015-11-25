@@ -1,16 +1,11 @@
 # Environment {{{
 
 [[ -f ~/.zshenv ]] && source ~/.zshenv
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 export LANG="en_US.utf-8"
 export LC_ALL="en_US.utf-8"
 export BROWSER="google-chrome:chromium"
 export EDITOR="vim"
-
-# Work {{{
-
-source ~/Island/rc.zsh
-
-# }}}
 
 # }}}
 # Shell {{{
@@ -452,4 +447,7 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 # https://github.com/clvv/dotfiles/blob/master/.zsh/completion.zsh
 # }}}
 
+# }}}
+# Server-specific {{{
+[[ -f ~/rc.zsh ]] && source ~/rc.zsh
 # }}}
