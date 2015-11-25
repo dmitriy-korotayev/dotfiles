@@ -6,13 +6,6 @@ export LC_ALL="en_US.utf-8"
 export BROWSER="google-chrome:chromium"
 export EDITOR="vim"
 
-# i3 binaries
-export PATH="$HOME/.i3/bin:$PATH"
-# user-level global node modules
-export PATH="$HOME/.node_modules/bin:$PATH"
-
-export LESSHISTFILE=/dev/null # no .lesshst file
-
 # Work {{{
 
 source ~/Island/rc.zsh
@@ -230,15 +223,26 @@ SAVEHIST=10000
 # }}}
 # Package-specific {{{
 
+# NPM {{{
+
+# user-level global node modules
+export PATH="$HOME/.node_modules/bin:$PATH"
+
+# }}}
 # Grunt {{{
 
 eval "$(grunt --completion=zsh)"
 
 # }}}
-# PHPBrew {{{
 
-#source ~/.phpbrew/bashrc
-#export PHPBREW_SET_PROMPT=1
+# i3wm {{{
+
+export PATH="$HOME/.i3/bin:$PATH"
+
+# }}}
+# Less {{{
+
+export LESSHISTFILE=/dev/null # no .lesshst file
 
 # }}}
 # Ruby {{{
@@ -359,6 +363,11 @@ alias pgg='ps -Af | grep'           # requires an argument
 
 alias c='app/console' # usual symfony console
 
+# }}}
+# Xclip {{{
+alias xc='xclip -selection clipboard'	# copy to clipboard, ctrl+c, ctrl+shift+c
+alias xcp='xclip -selection clipboard -o'	# paste from clipboard, ctrl+v, ctrl+shift+v
+alias xcs='xclip -selection primary -o'	# paste from highlight, middle click, shift+insert
 # }}}
 
 # }}}

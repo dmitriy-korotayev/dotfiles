@@ -8,6 +8,9 @@ set nocp " Vi-compatibility off
 " Per project .vimrc
 set exrc    " enable per-directory .vimrc files
 set secure  " disable unsafe commands in local .vimrc files
+for f in split(globpath(getcwd(),'.vimrc.local'), '\n')
+  exe 'source' f
+endfor
 
 " }}}
 " Load Plugins {{{
@@ -58,7 +61,7 @@ if !lite
     " UltiSnips - best snippet engine (python-based)
     Bundle 'SirVer/ultisnips'
     " YouCompleteMe: a code-completion engine for
-    Bundle 'Valloric/YouCompleteMe'
+    "Bundle 'Valloric/YouCompleteMe'
 endif
 
 " }}}
@@ -70,6 +73,8 @@ Bundle 'bling/vim-bufferline'
 Bundle 'vim-scripts/BufOnly.vim'
 " CtrlP - full path fuzzy file, buffer, mru, tag finder
 Bundle 'kien/ctrlp.vim'
+" NetGrep - grep and find on a remote server
+Bundle 'sirbrillig/netgrep'
 " :Greplace - replacing pattern across multiple files
 Bundle 'vim-scripts/Greplace.vim'
 " MRU - Most Recently Used files
@@ -88,10 +93,18 @@ Bundle 'danro/rename.vim'
 
 " CSS and LessCSS {{{
 
-" LessCSS syntax
-"Bundle 'dmitriy-korotayev/vim-less'
+" CSS colors
+"Bundle 'skammer/vim-css-color'
 " CSS3 syntax
 Bundle 'hail2u/vim-css3-syntax'
+" LessCSS syntax
+Bundle 'groenewege/vim-less'
+"Bundle 'dmitriy-korotayev/vim-less'
+
+" }}}
+" CoffeeScript {{{
+
+Bundle 'JarrodCTaylor/vim-js2coffee'
 
 " }}}
 " HTML/XML & embedded types {{{
@@ -123,6 +136,11 @@ Bundle 'tpope/vim-ragtag'
 
 " Syntax
 Bundle 'evanmiller/nginx-vim-syntax'
+
+" }}}
+" Jade {{{
+
+Bundle 'digitaltoad/vim-jade'
 
 " }}}
 " JavaScript {{{
@@ -185,9 +203,9 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 
 " omni-completion script for ruby
-if !lite
-    Bundle 'vim-scripts/rubycomplete.vim'
-endif
+"if !lite
+    "Bundle 'vim-scripts/rubycomplete.vim'
+"endif
 
 " Refactoring tool for Ruby (:R...)
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -601,6 +619,7 @@ nnoremap <leader>fj :set ft=javascript<CR>
 
 nnoremap <leader>fl :set ft=slim<CR>
 nnoremap <leader>fa :set ft=haml<CR>
+nnoremap <leader>fd :set ft=jade<CR>
 nnoremap <leader>fs :set ft=sass<CR>
 nnoremap <leader>fo :set ft=coffee<CR>
 
@@ -806,7 +825,7 @@ augroup END
 " }}}
 " CoffeeScript {{{
 
-au Filetype coffee setlocal sw=2 ts=2 sts=2 fdm=expr fde=GetImprovedIndentFold(v:lnum)
+au Filetype coffee setlocal sw=2 ts=2 sts=2 " fdm=expr fde=GetImprovedIndentFold(v:lnum)
 
 " }}}
 " Cucumber {{{
@@ -906,7 +925,7 @@ augroup END
 " }}}
 " Sass {{{
 
-au Filetype sass setlocal sw=2 ts=2 sts=2 fdm=expr fde=GetImprovedIndentFold(v:lnum)
+au Filetype sass setlocal sw=2 ts=2 sts=2 " fdm=expr fde=GetImprovedIndentFold(v:lnum)
 
 " }}}
 " SH {{{
