@@ -37,6 +37,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 bar {
     status_command i3status
+    tray_output primary
 }
 
 
@@ -56,31 +57,51 @@ exec --no-startup-id xset dpms 600
 # Mod1 = Alt key
 set $mod Mod4
 
+##### Displays #####
+
+# change display modes via autorandr
+set $mode_display (l) laptop (w) work
+mode "$mode_display" {
+
+    # Available profiles: work, laptop
+    bindsym w           exec --no-startup-id autorandr -l work, mode "default"
+    bindsym l           exec --no-startup-id autorandr -l laptop, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "$mode_display"
+
+
 ##### Workspaces #####
 
 set $w1 1: web
 set $w2 2: work
 set $w3 3: work2
-set $w4 4: project
-set $w5 5: project2
-set $w6 6
+set $w4 4: work3
+set $w5 5: project
+set $w6 6: project2
 set $w7 7
-set $w8 8: music
+set $w8 8: media
 set $w9 9: tmp
 set $w10 10: external
-# outputs (primary, secondary)
+# outputs (primary, secondary, tertiary)
 set $po eDP1
-set $so HDMI1
+set $so DP1-1
+set $to DP1-2
 workspace "$w1"  output $po
 workspace "$w2"  output $po
 workspace "$w3"  output $so
-workspace "$w4"  output $po
+workspace "$w4"  output $to
 workspace "$w5"  output $so
+workspace "$w6"  output $to
 workspace "$w10" output $so
 
 # switch to workspace
-bindsym $mod+n workspace next
-bindsym $mod+p workspace prev
+#bindsym $mod+n workspace next
+#bindsym $mod+p workspace prev
 bindsym $mod+q workspace back_and_forth
 bindsym $mod+1 workspace $w1
 bindsym $mod+2 workspace $w2
@@ -104,8 +125,8 @@ bindsym $mod+ctrl+7 move container to workspace $w7
 bindsym $mod+ctrl+8 move container to workspace $w8
 bindsym $mod+ctrl+9 move container to workspace $w9
 bindsym $mod+ctrl+0 move container to workspace $w10
-bindsym $mod+ctrl+n move container to workspace next
-bindsym $mod+ctrl+p move container to workspace prev
+#bindsym $mod+ctrl+n move container to workspace next
+#bindsym $mod+ctrl+p move container to workspace prev
 
 
 ##### Window Manipulation #####
@@ -168,6 +189,7 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
 # split in horizontal orientation
 #bindsym $mod+b split v
 # split in vertical orientation
@@ -224,8 +246,12 @@ bindsym $mod+ctrl+b exec chromium --user-data-dir="$HOME/.config/chromium/Defaul
 bindsym $mod+ctrl+shift+b exec tor-browser-en
 
 # --- Screenshots ---
-bindsym $mod+Print exec xfce4-screenshooter -r
-bindsym $mod+ctrl+Print exec xfce4-screenshooter
+bindsym $mod+p exec xfce4-screenshooter -r
+bindsym $mod+ctrl+p exec xfce4-screenshooter
+
+# --- Audio settings ---
+bindsym $mod+ctrl+v exec pavucontrol
+bindsym $mod+ctrl+e exec qpaeq
 
 
 ##### Extra #####
@@ -281,7 +307,7 @@ bindsym $mod+ctrl+w mode "$mode_work"
 ##### Debug #####
 
 # toggle compton
-bindsym $mod+ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send -i computer 'Compton enabled') || (notify-send -i display 'Compton disabled' && pkill compton)
+bindsym $mod+ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send 'Compton enabled') || (notify-send 'Compton disabled' && pkill compton)
 
 # reload xneur
 #bindsym $mod+shift+x exec zsh -c "pkill xneur; sleep 1; xneur"
@@ -294,7 +320,7 @@ bindsym $mod+Mod1+c exec i3-sensible-terminal -e zsh -i -c "vim ~/.i3/config"
 bindsym $mod+ctrl+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 
 ###################
@@ -308,10 +334,14 @@ bindsym $mod+ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut
 exec xneur
 exec thunar --daemon
 
-exec skype
+#exec skype
 exec nm-applet
 exec dropbox start -i
 exec megasync
+
+exec dunst
+exec redshift-gtk
+exec autorandr --change --default laptop
 # exec sleep 3 && appname
 
 # --- App rules ---
@@ -325,8 +355,10 @@ for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floatin
 for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
 # Chromium
 for_window [title="Task Manager - Chromium"] floating enable
-# Pulse Audio
+# Pulseaudio
 for_window [class="(?i)pavucontrol"] floating enable
+# Pulseaudio Equalizer
+for_window [class="(?i)qpaeq"] floating enable
 # Thunar
 for_window [title="File Operation Progress"] floating enable
 # popups

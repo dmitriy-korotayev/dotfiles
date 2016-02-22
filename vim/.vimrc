@@ -8,9 +8,9 @@ set nocp " Vi-compatibility off
 " Per project .vimrc
 set exrc    " enable per-directory .vimrc files
 set secure  " disable unsafe commands in local .vimrc files
-for f in split(globpath(getcwd(),'.vimrc.local'), '\n')
-  exe 'source' f
-endfor
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 
 " }}}
 " Load Plugins {{{
@@ -22,7 +22,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 " let Vundle manage Vundle - required!
-Bundle 'gmarik/Vundle.vim'
+Bundle 'VundleVim/Vundle.vim'
 
 " }}}
 
@@ -61,12 +61,14 @@ if !lite
     " UltiSnips - best snippet engine (python-based)
     Bundle 'SirVer/ultisnips'
     " YouCompleteMe: a code-completion engine for
-    "Bundle 'Valloric/YouCompleteMe'
+    Bundle 'Valloric/YouCompleteMe'
 endif
 
 " }}}
 " Files and their containers {{{
 
+" Ag.vim - Ack.vim alternative
+Bundle 'rking/ag.vim'
 " BufferLine - buffers in the command line
 Bundle 'bling/vim-bufferline'
 " :BufOnly - leave only current buffer
@@ -85,51 +87,57 @@ if !lite
 endif
 " :Rename the current file and retain relative path
 Bundle 'danro/rename.vim'
+" Syntastic - syntax-checking
+Bundle 'scrooloose/syntastic'
 " TagmaBufMgr - best buffer manager
 "Bundle 'JessicaKMcIntosh/TagmaBufMgr'
 
 " }}}
 " Filetype-specific {{{
 
-" CSS and LessCSS {{{
+" CSS and its preprocessors {{{
 
-" CSS colors
-"Bundle 'skammer/vim-css-color'
 " CSS3 syntax
 Bundle 'hail2u/vim-css3-syntax'
 " LessCSS syntax
 Bundle 'groenewege/vim-less'
 "Bundle 'dmitriy-korotayev/vim-less'
+" Stylus syntax
+Bundle 'wavded/vim-stylus'
+
+" CSS colors
+"Bundle 'skammer/vim-css-color'
 
 " }}}
-" CoffeeScript {{{
-
-Bundle 'JarrodCTaylor/vim-js2coffee'
-
-" }}}
-" HTML/XML & embedded types {{{
+" HTML/XML & preprocessors {{{
 
 " HTML5 omnicomplete and syntax
 Bundle 'othree/html5.vim'
-" Twig
-Bundle 'evidens/vim-twig'
+
+" Haml and Sass runtime files
+Bundle 'tpope/vim-haml'
+" Slim runtime files
+Bundle 'slim-template/vim-slim'
+" Jade runtime files
+Bundle 'digitaltoad/vim-jade'
 
 " Emmet - expanding html abbreviations
 Bundle 'mattn/emmet-vim'
 
 " Matchit - extended % matching
 Bundle 'tmhedberg/matchit'
-
 " MatchTag - highlight matching tag
 Bundle 'gregsexton/MatchTag'
-
-" Closetag - Automatically closes HTML tags on </
+" CloseTag - Automatically closes HTML tags on </
 Bundle 'vim-scripts/closetag.vim'
 
 " Ragtag - Useful mappings like <C-X>= or <C-X><Space>
 " for XML/HTML and dynamic content files
 " Also encodes tags, <C-V>% - URL encode next character
 Bundle 'tpope/vim-ragtag'
+
+" Twig
+"Bundle 'evidens/vim-twig'
 
 " }}}
 " Nginx {{{
@@ -138,40 +146,49 @@ Bundle 'tpope/vim-ragtag'
 Bundle 'evanmiller/nginx-vim-syntax'
 
 " }}}
-" Jade {{{
+" JavaScript and its preprocessors {{{
 
-Bundle 'digitaltoad/vim-jade'
+" Tern-based (improved) javascript editing
+Bundle 'ternjs/tern_for_vim'
+" Automatic import generation with <leader>j
+Bundle 'trotzig/import-js'
+" Indentation
+Bundle 'dmitriy-korotayev/vim-javascript'
+" Best syntax for javascript
+Bundle 'othree/yajs.vim'
+" Syntax for lots of javascript libraries
+Bundle 'othree/javascript-libraries-syntax.vim'
+" ES7 and future syntax
+Bundle 'othree/es.next.syntax.vim'
 
-" }}}
-" JavaScript {{{
-
-" Greatly reworked syntax file for js
-Bundle 'jelera/vim-javascript-syntax'
 " JSON-specific vim things
 Bundle 'elzr/vim-json'
+" JSX syntax/indenting
+Bundle 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-" }}}
-" Pascal {{{
-Bundle 'delphi.vim'
+" CoffeeScript runtime files
+Bundle 'kchmck/vim-coffee-script'
+" convert js to coffee
+Bundle 'JarrodCTaylor/vim-js2coffee'
+
 " }}}
 " PHP {{{
 
-" syntax file (5.3 & basic 5.4 support)
-Bundle 'StanAngeloff/php.vim'
+"" syntax file (5.3 & basic 5.4 support)
+"Bundle 'StanAngeloff/php.vim'
+"" better indenting
+"Bundle '2072/PHP-Indenting-for-VIm'
 
-" better indenting
-Bundle '2072/PHP-Indenting-for-VIm'
+"" better omni-completion
+"Bundle 'shawncplus/phpcomplete.vim'
+"" Automatic folding of functions, classes (also PhpDoc)
+"Bundle 'rayburgemeestre/phpfolding.vim'
 
-" better omni-completion
-Bundle 'shawncplus/phpcomplete.vim'
-
-" Automatic folding of functions, classes (also PhpDoc)
-Bundle 'rayburgemeestre/phpfolding.vim'
-
-" phpunitqf - PHPUnit runner for Vim
-if !lite
-    Bundle 'joonty/vim-phpunitqf'
-endif
+"" phpunitqf - PHPUnit runner for Vim
+"if !lite
+    "Bundle 'joonty/vim-phpunitqf'
+"endif
 
 " }}}
 " Ruby and RoR {{{
@@ -183,18 +200,11 @@ Bundle 'tpope/vim-rails'
 
 " Gems and related {{{
 
-" Haml and Sass runtime files
-Bundle 'tpope/vim-haml'
-" Slim runtime files
-Bundle 'slim-template/vim-slim'
-" CoffeeScript runtime files
-Bundle 'kchmck/vim-coffee-script'
-
 " Bundler support
 "Bundle 'tpope/vim-bundler'
 
 " Cucumber runtime files and CTRL-] on a step to definition
-Bundle 'tpope/vim-cucumber'
+"Bundle 'tpope/vim-cucumber'
 
 " }}}
 
@@ -499,12 +509,6 @@ noremap Q <nop>
 
 " }}}
 
-
-" }}}
-" Appearance {{{
-
-" Toggle [i]nvisible characters
-nnoremap <leader>i :set list!<cr>
 
 " }}}
 " Text {{{
@@ -851,17 +855,17 @@ augroup ft_java
 augroup END
 
 " }}}
-" Javascript {{{
+" JavaScript {{{
 
 augroup ft_javascript
     au!
 
     au BufNewFile,BufRead Gruntfile.js setlocal sw=2 ts=2 sts=2
-    au FileType javascript setlocal fdm=marker fmr={,}
+    "au FileType javascript setlocal fdm=marker fmr={,}
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
-    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space>.<cr><esc>kA<bs>
 augroup END
 
 " }}}
@@ -995,6 +999,11 @@ vnoremap ! :ClamVisual<space>
 let g:clam_autoreturn = 1
 
 " }}}
+" CloseTag {{{
+
+let g:closetag_filenames = "*.html,*.js"
+
+" }}}
 " ctrl-p {{{
 
 let g:ctrlp_working_path_mode = 0
@@ -1075,11 +1084,21 @@ let g:vdebug_options = {"port":9001}
 " }}}
 " Syntastic {{{
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_enable_signs = 1
-let g:syntastic_check_on_open = 1
-let syntastic_mode_map = { 'passive_filetypes': ['html','cucumber', 'ruby', 'php'] }
+" breaks vimgrep
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+let g:syntastic_javascript_checkers = ['eslint']
+
+"let syntastic_mode_map = { 'passive_filetypes': ['html','cucumber','ruby','php'] }
+"let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
 " Tabular {{{

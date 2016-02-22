@@ -224,9 +224,16 @@ SAVEHIST=10000
 export PATH="$HOME/.node_modules/bin:$PATH"
 
 # }}}
+# NVM {{{
+
+export NVM_DIR="/home/dmitriy/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$HOME/.avn/bin/avn.sh" ] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+# }}}
 # Grunt {{{
 
-eval "$(grunt --completion=zsh)"
+#eval "$(grunt --completion=zsh)"
 
 # }}}
 
@@ -304,7 +311,7 @@ alias sydr="sudo systemctl daemon-reload"
 # }}}
 # Yaourt {{{
 
-(( $+commands[yaourt] )) && package_manager='yaourt' || package_manager='pacman'
+(( $+commands[yaourt] )) && package_manager='yaourt' || package_manager='sudo pacman'
 alias y="  $package_manager"                  # default action       - Yaourt
 alias ys=" $package_manager -S"               # '[s]ync'             - install one or more packages
 alias yu=" $package_manager -Syu"             # '[u]pdate'           - upgrade all packages to their newest version
