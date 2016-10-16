@@ -1,0 +1,14 @@
+--- /tmp/xdg-open	2016-03-25 01:08:36.726734224 +0200
++++ /bin/xdg-open	2016-03-25 01:08:42.487441461 +0200
+@@ -814,6 +814,11 @@
+         fi
+     fi
+ 
++    if (echo "$1" | grep -q '^magnet:'); then
++      deluge $1
++      exit_success
++    fi
++
+     if [ -n "$BROWSER" ]; then
+         open_envvar "$1"
+     fi

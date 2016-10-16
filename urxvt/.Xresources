@@ -1,5 +1,5 @@
 !-------------------------------------------------------------------------------
-! URxvt settings
+! urxvt settings
 ! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
 ! More info at:
 ! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
@@ -7,51 +7,51 @@
 
 ! --- General ---
 
-URxvt.loginShell:           true
+urxvt.loginShell:           true
 
 ! Behavior
 
 ! Scroll on non-special key press
-URxvt*scrollTtyKeypress:    true
+urxvt*scrollTtyKeypress:    true
 ! Do not scroll to bottom when tty receives output
-URxvt*scrollTtyOutput:      false
+urxvt*scrollTtyOutput:      false
 ! Scroll with scrollback buffer when tty recieves new lines,
-URxvt*scrollWithBuffer:     true
+urxvt*scrollWithBuffer:     true
 ! For speed. When receiving lots of lines, urxvt will only scroll once
 ! in a while (around 60x/sec), resulting in fewer updates. This can
 ! result in urxvt not ever displaying some of the lines it receives
-URxvt*skipScroll:  true
+urxvt*skipScroll:  true
 
 ! Sounds
-!URxvt.urgentOnBell:        true
-!URxvt.visualBell:          true
+!urxvt.urgentOnBell:        true
+!urxvt.visualBell:          true
 
 
 ! --- Window ---
 
-URxvt.geometry:             90x30
-URxvt.transparent:          false
+urxvt.geometry:             90x30
+urxvt.transparent:          false
 
 ! Scroll keymaps
-URxvt.keysym.S-Up:          command:\033]720;1\007
-URxvt.keysym.S-Down:        command:\033]721;1\007
-!URxvt.keysym.S-Home:        \033[1;2H
-!URxvt.keysym.S-End:         \033[1;2F
-!URxvt*keysym.S-Page_Up:     \033[5;2~
-!URxvt*keysym.S-Page_Down:   \033[6;2~
+urxvt.keysym.S-Up:          command:\033]720;1\007
+urxvt.keysym.S-Down:        command:\033]721;1\007
+!urxvt.keysym.S-Home:        \033[1;2H
+!urxvt.keysym.S-End:         \033[1;2F
+!urxvt*keysym.S-Page_Up:     \033[5;2~
+!urxvt*keysym.S-Page_Down:   \033[6;2~
 
 ! Scrollbar
-URxvt.scrollStyle:          rxvt
-URxvt.scrollBar:            false
+urxvt.scrollStyle:          rxvt
+urxvt.scrollBar:            false
 
 ! --- Insides ---
 
-URxvt.saveLines:            4095
-URxvt.internalBorder:       0
+urxvt.saveLines:            4095
+urxvt.internalBorder:       0
 
 ! Text
 
-URxvt.lineSpace:            0
+urxvt.lineSpace:            0
 
 ! -Rendering
 Xft.dpi:                    96
@@ -62,47 +62,47 @@ Xft.rgba:                   rgb
 
 ! Colors
 
-URxvt.depth:                32
+urxvt.depth:                32
 urxvt*dynamicColors:        on
 ! Fade the text by the given percentage when focus is lost.
-URxvt*fading:  30
+urxvt*fading:  30
 
 ! Fonts
 
-URxvt*font:                 xft:Inconsolata LGC:style=Medium:pixelsize=16
-URxvt*boldFont:
-!URxvt*boldFont:             xft:Inconsolata LGC:style=Bold:pixelsize=16
-URxvt*italicFont:           xft:Inconsolata LGC:style=Medium Italic:pixelsize=16
-!URxvt*boldItalicfont:       xft:Inconsolata LGC:style=Bold Italic:pixelsize=16
+urxvt*font:                 xft:Inconsolata LGC:style=Medium:pixelsize=14
+urxvt*boldFont:
+!urxvt*boldFont:             xft:Inconsolata LGC:style=Bold:pixelsize=16
+urxvt*italicFont:           xft:Inconsolata LGC:style=Medium Italic:pixelsize=14
+!urxvt*boldItalicfont:       xft:Inconsolata LGC:style=Bold Italic:pixelsize=16
 ! -Fix font space
-URxvt*letterSpace: -1.5
+urxvt*letterSpace: -1.5
 
 ! Cursor
 
-!URxvt.cursorBlink:          true
-URxvt.cursorColor:          #657b83
-URxvt.cursorUnderline:      false
+!urxvt.cursorBlink:          true
+urxvt.cursorColor:          #657b83
+urxvt.cursorUnderline:      false
 
 ! Pointer
-URxvt.pointerBlank:         true
+urxvt.pointerBlank:         true
 
 
 ! --- Perl extensions ---
 
-URxvt.perl-ext-common:      default,clipboard,matcher
+urxvt.perl-ext-common:      default,clipboard,matcher
 ! clipboard
-URxvt.keysym.C-C:           perl:clipboard:copy
-URxvt.keysym.C-V:           perl:clipboard:paste
-URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
+urxvt.keysym.C-C:           perl:clipboard:copy
+urxvt.keysym.C-V:           perl:clipboard:paste
+urxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
 ! matcher
-URxvt.matcher.button:       1
-URxvt.urlLauncher:          chromium
+urxvt.matcher.button:       1
+urxvt.urlLauncher:          chromium
 
 
 ! --- Fixes ---
 
 ! Disable ctrl+shift iso14755
-URxvt.iso14755: False
-URxvt.iso14755_52: False
+urxvt.iso14755: False
+urxvt.iso14755_52: False
 
 ! --- Trash ---

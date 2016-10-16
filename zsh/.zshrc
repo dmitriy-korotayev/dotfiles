@@ -4,7 +4,7 @@
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 export LANG="en_US.utf-8"
 export LC_ALL="en_US.utf-8"
-export BROWSER="google-chrome:chromium"
+export BROWSER="chromium:google-chrome"
 export EDITOR="vim"
 
 # }}}
@@ -206,7 +206,7 @@ setopt appendhistory
 # don't put duplicate lines in the history
 setopt hist_ignore_all_dups
 # space-preceding commands are not written to history
-setopt hist_ignore_space
+#setopt hist_ignore_space
 
 # limits
 HISTFILE=~/.histfile
@@ -367,9 +367,11 @@ alias c='app/console' # usual symfony console
 
 # }}}
 # Xclip {{{
+
 alias xc='xclip -selection clipboard'	# copy to clipboard, ctrl+c, ctrl+shift+c
 alias xcp='xclip -selection clipboard -o'	# paste from clipboard, ctrl+v, ctrl+shift+v
 alias xcs='xclip -selection primary -o'	# paste from highlight, middle click, shift+insert
+
 # }}}
 
 # }}}

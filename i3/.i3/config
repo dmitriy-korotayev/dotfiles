@@ -88,9 +88,9 @@ set $w8 8: media
 set $w9 9: tmp
 set $w10 10: external
 # outputs (primary, secondary, tertiary)
-set $po eDP1
-set $so DP1-1
-set $to DP1-2
+set $po LVDS
+set $so DFP1
+set $to DFP1
 workspace "$w1"  output $po
 workspace "$w2"  output $po
 workspace "$w3"  output $so
@@ -338,8 +338,9 @@ exec thunar --daemon
 exec nm-applet
 exec dropbox start -i
 exec megasync
+exec --no-startup-id upmpdcli
 
-exec dunst
+exec --no-startup-id dunst
 exec redshift-gtk
 exec autorandr --change --default laptop
 # exec sleep 3 && appname

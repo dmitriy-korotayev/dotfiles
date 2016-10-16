@@ -10,6 +10,8 @@ i3: `pulseaudio-ctl` for volume control
 ## Installation
 
 ```zsh
+cd ~
+mkdir -p .config .local/share/fonts
 git clone https://github.com/dmitriy-korotayev/dotfiles.git
 cd dotfiles
 git submodule init
