@@ -15,248 +15,198 @@ endif
 " }}}
 " Load Plugins {{{
 
+call plug#begin('~/.vim/plugged')
 let lite = $VIM_LITE == 'true' ? 1 : 0
-" Vundle {{{
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
-" let Vundle manage Vundle - required!
-Bundle 'VundleVim/Vundle.vim'
-
-" }}}
-
+" Sensible defaults
+Plug 'tpope/vim-sensible'
 " Appearance {{{
 
 " Best colorscheme
-Bundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 " Better whitespace highlighting
-Bundle 'ntpeters/vim-better-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 
 " }}}
 " Text {{{
 
 " Linediff - compare two blocks of code
-Bundle 'AndrewRadev/linediff.vim'
+"Plug 'AndrewRadev/linediff.vim'
 " NERDCommenter - intensely orgasmic commenting
-Bundle 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Surround - quoting/parenthesizing made simple
-Bundle 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " Tabular - readable code with smart <space>ing
-Bundle 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 " vim-textobj-user - Create your own text objects
-Bundle 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-user'
 " ic, ac, iC, and aC as text-objects.
 " Use them in commands like vic, cic, and daC
-Bundle 'coderifous/textobj-word-column.vim'
+Plug 'coderifous/textobj-word-column.vim'
 
 " }}}
 " Editing {{{
 
 " Abolish - ultimate iabbrev solution
-Bundle 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 " delimitMate - auto-completion for ({["'`
-Bundle 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 if !lite
     " UltiSnips - best snippet engine (python-based)
-    Bundle 'SirVer/ultisnips'
+    Plug 'SirVer/ultisnips'
     " YouCompleteMe: a code-completion engine for
-    Bundle 'Valloric/YouCompleteMe'
+    "Plug 'Valloric/YouCompleteMe'
 endif
 
 " }}}
 " Files and their containers {{{
 
 " Ag.vim - Ack.vim alternative
-Bundle 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " BufferLine - buffers in the command line
-Bundle 'bling/vim-bufferline'
+Plug 'bling/vim-bufferline'
 " :BufOnly - leave only current buffer
-Bundle 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/BufOnly.vim'
 " CtrlP - full path fuzzy file, buffer, mru, tag finder
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " NetGrep - grep and find on a remote server
-Bundle 'sirbrillig/netgrep'
+Plug 'sirbrillig/netgrep'
 " :Greplace - replacing pattern across multiple files
-Bundle 'vim-scripts/Greplace.vim'
+Plug 'vim-scripts/Greplace.vim'
 " MRU - Most Recently Used files
-"Bundle 'yegappan/mru'
+Plug 'yegappan/mru'
 " NERDTree - tree explorer
 if !lite
-    Bundle 'scrooloose/nerdtree'
+    Plug 'scrooloose/nerdtree'
 endif
 " :Rename the current file and retain relative path
-Bundle 'danro/rename.vim'
+Plug 'danro/rename.vim'
 " Syntastic - syntax-checking
-Bundle 'scrooloose/syntastic'
-" TagmaBufMgr - best buffer manager
-"Bundle 'JessicaKMcIntosh/TagmaBufMgr'
+Plug 'scrooloose/syntastic'
 
 " }}}
 " Filetype-specific {{{
 
-" CSS and its preprocessors {{{
+" CSS & preprocessors {{{
 
 " CSS3 syntax
-Bundle 'hail2u/vim-css3-syntax'
-" LessCSS syntax
-Bundle 'groenewege/vim-less'
-"Bundle 'dmitriy-korotayev/vim-less'
-" Stylus syntax
-Bundle 'wavded/vim-stylus'
-
-" CSS colors
-"Bundle 'skammer/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+" Syntastic plugin for sass
+Plug 'gcorne/vim-sass-lint'
 
 " }}}
-" HTML/XML & preprocessors {{{
+" HTML & preprocessors {{{
 
 " HTML5 omnicomplete and syntax
-Bundle 'othree/html5.vim'
+Plug 'othree/html5.vim'
 
 " Haml and Sass runtime files
-Bundle 'tpope/vim-haml'
+Plug 'tpope/vim-haml'
 " Slim runtime files
-Bundle 'slim-template/vim-slim'
-" Jade runtime files
-Bundle 'digitaltoad/vim-jade'
+"Plug 'slim-template/vim-slim'
+" Pug/Jade runtime files
+Plug 'digitaltoad/vim-pug'
 
 " Emmet - expanding html abbreviations
-Bundle 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 " Matchit - extended % matching
-Bundle 'tmhedberg/matchit'
+Plug 'tmhedberg/matchit'
 " MatchTag - highlight matching tag
-Bundle 'gregsexton/MatchTag'
+Plug 'gregsexton/MatchTag'
 " CloseTag - Automatically closes HTML tags on </
-Bundle 'vim-scripts/closetag.vim'
+Plug 'vim-scripts/closetag.vim'
 
 " Ragtag - Useful mappings like <C-X>= or <C-X><Space>
 " for XML/HTML and dynamic content files
 " Also encodes tags, <C-V>% - URL encode next character
-Bundle 'tpope/vim-ragtag'
-
-" Twig
-"Bundle 'evidens/vim-twig'
+Plug 'tpope/vim-ragtag'
 
 " }}}
-" Nginx {{{
-
-" Syntax
-Bundle 'evanmiller/nginx-vim-syntax'
-
-" }}}
-" JavaScript and its preprocessors {{{
+" JS & preprocessors {{{
 
 " Tern-based (improved) javascript editing
-Bundle 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim'
 " Automatic import generation with <leader>j
-Bundle 'trotzig/import-js'
+Plug 'trotzig/import-js'
 " Indentation
-Bundle 'dmitriy-korotayev/vim-javascript'
+Plug 'dmitriy-korotayev/vim-javascript'
 " Best syntax for javascript
-Bundle 'othree/yajs.vim'
+Plug 'othree/yajs.vim'
 " Syntax for lots of javascript libraries
-Bundle 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
 " ES7 and future syntax
-Bundle 'othree/es.next.syntax.vim'
+Plug 'othree/es.next.syntax.vim'
 
 " JSON-specific vim things
-Bundle 'elzr/vim-json'
+Plug 'elzr/vim-json'
 " JSX syntax/indenting
-Bundle 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " CoffeeScript runtime files
-Bundle 'kchmck/vim-coffee-script'
+"Plug 'kchmck/vim-coffee-script'
 " convert js to coffee
-Bundle 'JarrodCTaylor/vim-js2coffee'
-
-" }}}
-" PHP {{{
-
-"" syntax file (5.3 & basic 5.4 support)
-"Bundle 'StanAngeloff/php.vim'
-"" better indenting
-"Bundle '2072/PHP-Indenting-for-VIm'
-
-"" better omni-completion
-"Bundle 'shawncplus/phpcomplete.vim'
-"" Automatic folding of functions, classes (also PhpDoc)
-"Bundle 'rayburgemeestre/phpfolding.vim'
-
-"" phpunitqf - PHPUnit runner for Vim
-"if !lite
-    "Bundle 'joonty/vim-phpunitqf'
-"endif
+"Plug 'JarrodCTaylor/vim-js2coffee'
 
 " }}}
 " Ruby and RoR {{{
 
 " Ruby config files
-Bundle 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
 " rails.vim - Ruby on Rails power tools
-Bundle 'tpope/vim-rails'
-
-" Gems and related {{{
-
-" Bundler support
-"Bundle 'tpope/vim-bundler'
-
-" Cucumber runtime files and CTRL-] on a step to definition
-"Bundle 'tpope/vim-cucumber'
-
-" }}}
+Plug 'tpope/vim-rails'
 
 " Endwise - adding end after if, do, def...
 " Also supports bash, c/c++, lua
-Bundle 'tpope/vim-endwise'
+Plug 'tpope/vim-endwise'
 
 " omni-completion script for ruby
 "if !lite
-    "Bundle 'vim-scripts/rubycomplete.vim'
+    "Plug 'vim-scripts/rubycomplete.vim'
 "endif
 
 " Refactoring tool for Ruby (:R...)
-Bundle 'ecomba/vim-ruby-refactoring'
+Plug 'ecomba/vim-ruby-refactoring'
 
 " A custom text object for selecting ruby blocks
 if !lite
-    Bundle 'nelstrom/vim-textobj-rubyblock'
+    Plug 'nelstrom/vim-textobj-rubyblock'
 endif
 
 " }}}
-" Systemd {{{
+" Other {{{
 
-" Systemd syntax highlighting
-Bundle "Matt-Deacalion/vim-systemd-syntax"
+" Nginx syntax
+Plug 'evanmiller/nginx-vim-syntax'
+" Systemd syntax
+Plug 'Matt-Deacalion/vim-systemd-syntax'
 
 " }}}
-
-" VDebug - Multi-language DBGP debugger client
-"Bundle 'joonty/vdebug'
 
 " }}}
 " Uncategorized {{{
 
 " Clam - advanced shell output
-Bundle 'sjl/clam.vim'
+Plug 'sjl/clam.vim'
 " Fugitive - Git wrapper so awesome, it should be illegal
-Bundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Git runtime files
-Bundle 'tpope/vim-git'
+Plug 'tpope/vim-git'
 " Ruscmd - command mode in Russian keyboard layout
 if !lite
-    Bundle 'powerman/vim-plugin-ruscmd'
+    Plug 'powerman/vim-plugin-ruscmd'
 endif
 " Scratch buffer for vim
-Bundle 'duff/vim-scratch'
+Plug 'duff/vim-scratch'
 " Tagbar - displays tags in a window, ordered by class
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Vim-misc - Miscellaneous auto-load Vim scripts
-Bundle 'xolox/vim-misc'
+Plug 'xolox/vim-misc'
 
 " }}}
+" Add plugins to &runtimepath
+call plug#end()
 
 " }}}
 
@@ -286,32 +236,20 @@ endif
 " }}}
 
 " }}}
-" Appearance {{{
+" Interface {{{
 
 set nu " Line numbers at the left
+
+set stl=%f%r%w%h%4m\ (%{&ff}){%Y}\ [%l,%v][%p%%] " statusline format
+set sc " Visual mode info on the right
 
 " Colors {{{
 
 set t_Co=256 " 256 colors
-
-syn on " Syntax highlighting done by vim
 "set smc=500 " Don't try to highlight long lines
-
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1 " transparent terminal bg
 colorscheme solarized
-
-" }}}
-" Statusline {{{
-
-set ls=2 " always show statusline, not depending on window count
-set stl=%f%r%w%h%4m\ (%{&ff}){%Y}\ [%l,%v][%p%%] " format
-
-" }}}
-" Bottom line {{{
-
-set smd " Mode on the left
-set sc " Visual mode info on the right
 
 " }}}
 
@@ -340,23 +278,6 @@ set fdls=0 " Close all folds on file open
 
 set sm " Highlight matching bracket
 
-function! MyFoldText() " {{{
-let line = getline(v:foldstart)
-
-let nucolwidth = &fdc + &number * &numberwidth
-let windowwidth = winwidth(0) - nucolwidth - 3
-let foldedlinecount = v:foldend - v:foldstart
-
-" expand tabs into spaces
-let onetab = strpart('          ', 0, &tabstop)
-let line = substitute(line, '\t', onetab, 'g')
-
-let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-"set foldtext=MyFoldText()
-
 " }}}
 " Searching {{{
 
@@ -365,7 +286,6 @@ set grepprg=ack " use Ack instead of grep
 set ic  " Ignore case in search
 set scs " if uppercase letter is typed, search case-sensitive
 
-set is  " Show nearest match while typing
 set hls " Highlight previous search pattern matches
 
 " }}}
@@ -373,18 +293,13 @@ set hls " Highlight previous search pattern matches
 " }}}
 " Editing {{{
 
-set bs=indent,eol,start " Backspace deletes tabs, eol and start of insert
-
 " Tabs {{{
-
-set ai    " Auto-indentation
 
 set sw=2  " Number of spaces for >>,<<,(auto)indentation
 set sr    " Round indentation, disallow extra spaces
 set ts=2  " Number of spaces for <Tab>
 set et    " Use spaces for <Tab> in insert mode
 "set sts=2 " Number of spaces for <Tab> in insert mode
-set sta   " Allows deletion of indentation inserted at the beginning of line, not a single space
 
 " }}}
 " Typing assistance (autocomplete, spelling) {{{
@@ -396,27 +311,23 @@ set spf=~/.vim/en.utf-8.add " Custom word spelling file
 
 " Wildmenu completion {{{
 
-set wmnu " When on, autocompletion matches are being shown on <Tab> (or automatically, with plugin)
 set wim=longest,list,full
 
 " Ignored files
 set wig+=.hg,.git,.svn                    " Version control
+set wig+=lib
+set wig+=node_modules,bower_components,build " ususal js stuff
 
 set wig+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wig+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wig+=*.spl                            " compiled spelling word lists
 
 set wig+=*.sw?                            " Vim swap files
-set wig+=migrations                       " Django migrations
-set wig+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wig+=*.pyc                            " Python byte code
 set wig+=*.luac                           " Lua byte code
 
 set wig+=*.DS_Store                       " OSX bullshit
 set wig+=*.orig                           " Merge resolution files
-
-set wig+=classes                          " Clojure/Leiningen
-set wig+=lib
 
 " }}}
 
@@ -427,19 +338,15 @@ set wig+=lib
 
 set bkc=yes " cp a file on backup instead of mv
 set ar " Read file automatically on modification outside
-
-" Windows {{{
-
 set spr " Splits created on the right
-" Open help on the right too
-"cnoremap help vert help
+
+" open help on the right too
+cnoremap help vert help 
 
 " }}}
 " Buffers {{{
 
 set hid " Hide buffer, don't require save/undo
-
-" }}}
 
 " }}}
 " Sessions {{{
@@ -448,11 +355,6 @@ set hid " Hide buffer, don't require save/undo
 au BufWinLeave *.c mkview
 au BufWinEnter *.c silent loadview
 
-" History {{{
-
-set hi=1000 " Size of history of : commmands
-
-" }}}
 " Swap {{{
 
 if isdirectory($HOME . '/.vim/tmp/swap') == 0
@@ -669,14 +571,9 @@ nnoremap <silent> <Leader>rv :source $MYVIMRC<CR>
 
 " }}}
 
-" Time out on key codes but not mappings. {{{
-
+" Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
 set noto
-set ttimeout
-set ttimeoutlen=10
-
-" }}}
 
 " }}}
 " Functions {{{
@@ -807,17 +704,12 @@ set fdt=ImprovedFoldText()
 
 " Filetypes {{{
 
-filetype plugin indent on
-
-" CSS, LessCSS and SCSS {{{
+" CSS & preprocessors {{{
 
 augroup ft_css
     au!
 
     au BufNewFile,BufRead *.less setlocal filetype=less
-
-    au Filetype less,css,scss setlocal fdm=marker fmr={,} sw=2 ts=2 sts=2
-
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype less,css setlocal iskeyword+=-
 
@@ -827,41 +719,10 @@ augroup ft_css
 augroup END
 
 " }}}
-" CoffeeScript {{{
-
-au Filetype coffee setlocal sw=2 ts=2 sts=2 " fdm=expr fde=GetImprovedIndentFold(v:lnum)
-
-" }}}
-" Cucumber {{{
-
-augroup ft_cucumber
-    au!
-    au Filetype cucumber setlocal fdm=syntax sw=2 ts=2 sts=2
-augroup END
-
-" }}}
-" Haml {{{
-
-au Filetype haml setlocal sw=2 ts=2 sts=2
-"fdm=indent
-
-" }}}
-" Java {{{
-
-augroup ft_java
-    au!
-
-    au FileType java setlocal fdm=marker fmr={,}
-augroup END
-
-" }}}
-" JavaScript {{{
+" JS {{{
 
 augroup ft_javascript
     au!
-
-    au BufNewFile,BufRead Gruntfile.js setlocal sw=2 ts=2 sts=2
-    "au FileType javascript setlocal fdm=marker fmr={,}
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
@@ -869,54 +730,11 @@ augroup ft_javascript
 augroup END
 
 " }}}
-" JSON {{{
-augroup ft_json
-    au!
-    au FileType json setlocal sw=2 ts=2 sts=2
-augroup END
-
-" }}}
-" Markdown {{{
-
-augroup ft_markdown
-    au!
-
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-
-augroup END
-
-" }}}
-" PHP {{{
-
-" *.tpl files are usually php
-au BufRead,BufNewFile *.tpl set filetype=php
-
-" check PHP syntax with Ctrl + L
-au FileType php noremap <C-L> :!/usr/bin/env php -l %<CR>
-
-" Refresh folds
-au FileType php noremap <leader>rf :EnablePHPFolds<CR>zMzv
-
-"au FileType php set omnifunc=phpcomplete#CompletePHP
-set completeopt-=preview
-"let php_sql_query=1
-"let php_htmlInStrings=1
-
-" }}}
-" Pascal {{{
-
-au Filetype pascal setlocal fdm=syntax sw=2 ts=2 sts=2
-let pascal_delphi=1
-let pascal_symbol_operator=1
-let pascal_fpc=1
-
-" }}}
 " Ruby {{{
 
 augroup ft_ruby
     au!
     au BufNewFile,BufRead *.prawn set filetype=ruby
-    au Filetype ruby setlocal fdm=syntax sw=2 ts=2 sts=2
     au Filetype eruby setlocal sw=4 ts=4 sts=4
     autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -927,62 +745,38 @@ augroup ft_ruby
 augroup END
 
 " }}}
-" Sass {{{
+" Markdown {{{
 
-au Filetype sass setlocal sw=2 ts=2 sts=2 " fdm=expr fde=GetImprovedIndentFold(v:lnum)
+augroup ft_markdown
+    au!
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+augroup END
 
 " }}}
 " SH {{{
 
 augroup ft_sh
-    au FileType sh setlocal ts=2 sw=2
-    au FileType sh setlocal fdm=marker fml=1
+    au FileType sh setlocal fml=1
 augroup END
 
 " }}}
-" Silverstripe {{{
-augroup ft_ss
-    au BufNewFile,BufRead *.ss setlocal ft=html
-augroup END
-" }}}
-" Snippets {{{
+"" PHP {{{
 
-au Filetype snippets setlocal sw=2 ts=2 sts=2 et
+"" *.tpl files are usually php
+"au BufRead,BufNewFile *.tpl set filetype=php
 
-" }}}
-" Vim {{{
+"" check PHP syntax with Ctrl + L
+"au FileType php noremap <C-L> :!/usr/bin/env php -l %<CR>
 
-augroup ft_vim
-    au!
+"" Refresh folds
+"au FileType php noremap <leader>rf :EnablePHPFolds<CR>zMzv
 
-    au FileType vim setlocal fdm=marker
-augroup END
+""au FileType php set omnifunc=phpcomplete#CompletePHP
+"set completeopt-=preview
+""let php_sql_query=1
+""let php_htmlInStrings=1
 
-" }}}
-" YAML {{{
-
-augroup ft_yaml
-    au!
-    au Filetype yaml setlocal fdm=syntax sw=2 ts=2 sts=2
-augroup END
-
-" }}}
-" Workscript {{{
-
-au BufRead,BufNewFile .workscript set filetype=sh
-au BufRead,BufNewFile .workscript setlocal sw=2 ts=2 sts=2
-
-" }}}
-" Multiple {{{
-
-autocmd FileType css nnoremap <buffer> <leader>ffcc :call CSScomb()<CR>
-autocmd FileType sass,scss nnoremap <buffer> <leader>ffsc :call CSScomb()<CR>
-function! CSScomb()
-  execute "silent !csscomb " . expand('%')
-  redraw!
-endfunction
-
-" }}}
+"" }}}
 
 " }}}
 " Plugins {{{
@@ -1012,7 +806,6 @@ let g:ctrlp_open_multiple_files = 'i'
 " }}}
 " delimitMate {{{
 
-au FileType php inoremap {<CR> {<CR>}<Esc>ko
 au FileType vim let b:delimitMate_quotes = "'"
 
 " }}}
@@ -1047,15 +840,10 @@ vnoremap <leader>l :Linediff<cr>
 nnoremap <leader>L :LinediffReset<cr>
 
 " }}}
-" Matchit {{{
-
-runtime macros/matchit.vim
-
-" }}}
 " MRU {{{
 
-"nnoremap <F3> :MRU<CR>
-"let MRU_File = expand('~/.vim/tmp/plugin_mru_files')
+nnoremap <F3> :MRU<CR>
+let MRU_File = expand('~/.vim/tmp/plugin_mru_files')
 
 " }}}
 " NERD Tree {{{
@@ -1096,6 +884,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_scss_checkers = ['sasslint']
 
 "let syntastic_mode_map = { 'passive_filetypes': ['html','cucumber','ruby','php'] }
 "let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
@@ -1200,5 +989,22 @@ let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
 
 " }}}
+
+function! MyFoldText() " {{{
+let line = getline(v:foldstart)
+
+let nucolwidth = &fdc + &number * &numberwidth
+let windowwidth = winwidth(0) - nucolwidth - 3
+let foldedlinecount = v:foldend - v:foldstart
+
+" expand tabs into spaces
+let onetab = strpart('          ', 0, &tabstop)
+let line = substitute(line, '\t', onetab, 'g')
+
+let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
+"set foldtext=MyFoldText()
 
 " }}}

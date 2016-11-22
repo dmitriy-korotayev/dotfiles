@@ -1,8 +1,9 @@
 !.gitkeep
 
 i3/.i3/i3log
+i3/.config/gtk-3.0/bookmarks
 
-vim/.vim/bundle/*/
+vim/.vim/plugged/*/
 !vim/.vim/bundle/Vundle.vim/
 vim/.vim/tmp/
 vim/.vim/.netrwhist
