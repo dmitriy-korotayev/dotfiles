@@ -322,6 +322,8 @@ alias yss="$package_manager -Ss"              # '[Ss]earch'           - search f
 alias yi=" $package_manager -Si"              # '[i]nfo'             - show information about a package
 alias ylo="$package_manager -Qdt"             # '[l]ist [o]rphans'   - list all packages which are orphaned
 alias ylf="$package_manager -Ql"              # '[l]ist [f]iles'     - list all files installed by a given package
+# Use Reflector to populate mirrorlist with fastest mirrors
+alias yrl="sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
 # }}}
 

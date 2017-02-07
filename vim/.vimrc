@@ -87,25 +87,15 @@ Plug 'scrooloose/syntastic'
 " }}}
 " Filetype-specific {{{
 
+" Most of language packs you'll need
+Plug 'sheerun/vim-polyglot'
 " CSS & preprocessors {{{
 
-" CSS3 syntax
-Plug 'hail2u/vim-css3-syntax'
 " Syntastic plugin for sass
 Plug 'gcorne/vim-sass-lint'
 
 " }}}
 " HTML & preprocessors {{{
-
-" HTML5 omnicomplete and syntax
-Plug 'othree/html5.vim'
-
-" Haml and Sass runtime files
-Plug 'tpope/vim-haml'
-" Slim runtime files
-"Plug 'slim-template/vim-slim'
-" Pug/Jade runtime files
-Plug 'digitaltoad/vim-pug'
 
 " Emmet - expanding html abbreviations
 Plug 'mattn/emmet-vim'
@@ -125,46 +115,35 @@ Plug 'tpope/vim-ragtag'
 " }}}
 " JS & preprocessors {{{
 
-" Tern-based (improved) javascript editing
-Plug 'ternjs/tern_for_vim'
-" Automatic import generation with <leader>j
-Plug 'trotzig/import-js'
-" Indentation
-Plug 'dmitriy-korotayev/vim-javascript'
-" Best syntax for javascript
-Plug 'othree/yajs.vim'
 " Syntax for lots of javascript libraries
 Plug 'othree/javascript-libraries-syntax.vim'
-" ES7 and future syntax
-Plug 'othree/es.next.syntax.vim'
 
-" JSON-specific vim things
-Plug 'elzr/vim-json'
-" JSX syntax/indenting
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+" Tern-based (improved) javascript editing
+"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
-" CoffeeScript runtime files
-"Plug 'kchmck/vim-coffee-script'
-" convert js to coffee
-"Plug 'JarrodCTaylor/vim-js2coffee'
+" Eslint syntastic plugin (uses local rather than global)
+Plug 'mtscout6/syntastic-local-eslint.vim'
+
+" detect extensionless node scripts (executables) via shebang
+" and add gf for going to node_modules files
+Plug 'moll/vim-node'
+
+" Parameter completion (in or after ' or "), bound to user complete
+"Plug 'othree/jspc.vim'
+" Automatic import generation with <leader>j
+Plug 'trotzig/import-js'
+" <leader>pd on function to insert jsdoc above
+Plug 'heavenshell/vim-jsdoc'
 
 " }}}
 " Ruby and RoR {{{
 
-" Ruby config files
-Plug 'vim-ruby/vim-ruby'
 " rails.vim - Ruby on Rails power tools
 Plug 'tpope/vim-rails'
 
 " Endwise - adding end after if, do, def...
 " Also supports bash, c/c++, lua
 Plug 'tpope/vim-endwise'
-
-" omni-completion script for ruby
-"if !lite
-    "Plug 'vim-scripts/rubycomplete.vim'
-"endif
 
 " Refactoring tool for Ruby (:R...)
 Plug 'ecomba/vim-ruby-refactoring'
@@ -173,14 +152,6 @@ Plug 'ecomba/vim-ruby-refactoring'
 if !lite
     Plug 'nelstrom/vim-textobj-rubyblock'
 endif
-
-" }}}
-" Other {{{
-
-" Nginx syntax
-Plug 'evanmiller/nginx-vim-syntax'
-" Systemd syntax
-Plug 'Matt-Deacalion/vim-systemd-syntax'
 
 " }}}
 
@@ -721,12 +692,14 @@ augroup END
 " }}}
 " JS {{{
 
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 augroup ft_javascript
     au!
 
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
-    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space>.<cr><esc>kA<bs>
+    "au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space>.<cr><esc>kA<bs>
 augroup END
 
 " }}}
