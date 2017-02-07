@@ -1,4 +1,4 @@
-export DISPLAY=:0
+#export DISPLAY=:0
 setxkbmap -layout lv,ru -option grp:caps_toggle,grp_led:caps
 xset r rate 200 25
 xset b off

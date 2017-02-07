@@ -69,6 +69,9 @@ Plug 'bling/vim-bufferline'
 Plug 'vim-scripts/BufOnly.vim'
 " CtrlP - full path fuzzy file, buffer, mru, tag finder
 Plug 'kien/ctrlp.vim'
+" Vim-Sync - \su to upload to and \sd to download from remote.
+" Uses .sync in a project directory
+Plug 'eshion/vim-sync'
 " NetGrep - grep and find on a remote server
 Plug 'sirbrillig/netgrep'
 " :Greplace - replacing pattern across multiple files
@@ -683,6 +686,7 @@ augroup ft_css
     au BufNewFile,BufRead *.less setlocal filetype=less
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype less,css setlocal iskeyword+=-
+    au Filetype css setlocal sw=4 ts=4 sts=4
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.

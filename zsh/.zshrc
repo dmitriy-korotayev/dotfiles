@@ -226,7 +226,7 @@ export PATH="$HOME/.node_modules/bin:$PATH"
 # }}}
 # NVM {{{
 
-export NVM_DIR="/home/dmitriy/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$HOME/.avn/bin/avn.sh" ] && source "$HOME/.avn/bin/avn.sh" # load avn
 
@@ -283,7 +283,7 @@ alias ls='ls -hF --color=auto'
 
 alias ll='ls -l'
 alias lr='ls -R'                    # recursive ls
-alias la='ll -A'
+alias la='ll -a'
 
 alias lx='ll -BX'                   # sort by extension
 alias lz='ll -rS'                   # sort by size
