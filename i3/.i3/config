@@ -1,3 +1,12 @@
+################
+# Todo list
+################
+# i3bar status
+# timeout suspend system
+# Assign apps to workspace https://github.com/jmazzi/dotfiles/blob/master/.i3/config
+# resize+move
+
+
 # i3 config file
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -6,7 +15,7 @@
 ##################
 
 # tearing-free experience
-exec compton -b
+exec --no-startup-id compton -b
 
 ##### Colors #####
 
@@ -45,8 +54,12 @@ bar {
 # Feel
 ###################
 
-# turn off the screen after 10m
-exec --no-startup-id xset dpms 600
+# disable the bell & turn off the screen after 10m
+exec --no-startup-id xset -b off -dpms 600
+# keyboard layouts, caps toggle, led indicator
+exec --no-startup-id setxkbmap -layout lv,ru -option grp:caps_toggle,grp_led:caps
+# keyboard 'typematic' delay
+exec --no-startup-id xset r rate 200 25
 
 
 ###################
@@ -59,6 +72,7 @@ set $mod Mod4
 
 ##### Displays #####
 
+# TODO: Set up TV and fix this
 # change display modes via autorandr
 set $mode_display (l) laptop (w) work
 mode "$mode_display" {
@@ -87,6 +101,7 @@ set $w7 7
 set $w8 8: media
 set $w9 9: tmp
 set $w10 10: external
+
 # outputs (primary, secondary, tertiary)
 set $po LVDS
 set $so DFP1
@@ -100,8 +115,6 @@ workspace "$w6"  output $to
 workspace "$w10" output $so
 
 # switch to workspace
-#bindsym $mod+n workspace next
-#bindsym $mod+p workspace prev
 bindsym $mod+q workspace back_and_forth
 bindsym $mod+1 workspace $w1
 bindsym $mod+2 workspace $w2
@@ -113,6 +126,8 @@ bindsym $mod+7 workspace $w7
 bindsym $mod+8 workspace $w8
 bindsym $mod+9 workspace $w9
 bindsym $mod+0 workspace $w10
+#bindsym $mod+n workspace next
+#bindsym $mod+p workspace prev
 
 # move focused container to workspace
 bindsym $mod+ctrl+1 move container to workspace $w1
@@ -125,8 +140,6 @@ bindsym $mod+ctrl+7 move container to workspace $w7
 bindsym $mod+ctrl+8 move container to workspace $w8
 bindsym $mod+ctrl+9 move container to workspace $w9
 bindsym $mod+ctrl+0 move container to workspace $w10
-#bindsym $mod+ctrl+n move container to workspace next
-#bindsym $mod+ctrl+p move container to workspace prev
 
 
 ##### Window Manipulation #####
@@ -146,13 +159,14 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
-
 # focus the parent container
 bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+d focus child
+# kill focused window (default: bindsym $mod+Shift+q kill)
+bindsym $mod+c kill
+# fullscreen mode for the focused container
+bindsym $mod+f fullscreen
 
 # move focused window (default: jkl;)
 bindsym $mod+ctrl+h move left
@@ -187,19 +201,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
-
-# split in horizontal orientation
-#bindsym $mod+b split v
-# split in vertical orientation
-#bindsym $mod+v split h
-
-# fullscreen mode for the focused container
-bindsym $mod+f fullscreen
-
-# kill focused window (default: bindsym $mod+Shift+q kill)
-bindsym $mod+c kill
 
 ### Floating ###
 
@@ -222,19 +224,19 @@ bindsym $mod+minus scratchpad show
 ##### Applications #####
 
 # --- General ---
+
 # Terminal (personally - URxvt)
 bindsym $mod+Return exec i3-sensible-terminal
 
 # j4-dmenu-desktop -- A faster replacement for i3-dmenu-desktop
 # https://github.com/enkore/j4-dmenu-desktop
 # https://aur.archlinux.org/packages/j4-dmenu-desktop-git/
-#bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
 bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'DejaVu Sans-10' -l 20"
 
 # --- Network ---
 
 # nmcli_dmenu -- dmenu frontend for NetworkManager
-bindsym $mod+i exec nmcli_dmenu
+bindsym $mod+i exec --no-startup-id nmcli_dmenu
 
 # --- File Manager ---
 bindsym $mod+ctrl+m exec thunar
@@ -258,14 +260,15 @@ bindsym $mod+ctrl+e exec qpaeq
 ##### Extra #####
 
 # brightness control
-bindsym XF86MonBrightnessUp   exec xbacklight +10
-bindsym XF86MonBrightnessDown exec xbacklight -10
+bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight +10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10
 
 # sound control
 bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
 bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
 bindsym XF86AudioMute exec pulseaudio-ctl mute
-# toggle pause cmus music player
+
+# TODO: toggle pause cmus music player
 #bindsym XF86AudioPlay exec cmus-remote -u
 
 # other media keys
@@ -288,21 +291,8 @@ mode "$mode_system" {
 }
 bindsym $mod+ctrl+s mode "$mode_system"
 
-# toggle(shift) on (b)attery behavior (e.g. suspend on lid close)
+# TODO: toggle(shift) on (b)attery behavior (e.g. suspend on lid close)
 #bindsym $mod+shift+b
-
-
-# work
-set $mode_work Work (c) toggle cable (a) switch autorandr to work profile
-mode "$mode_work" {
-    bindsym c           exec --no-startup-id ~/Island/cable.zsh, mode "default"
-    bindsym a           exec --no-startup-id autorandr -l work, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+ctrl+w mode "$mode_work"
 
 
 ##### Debug #####
@@ -332,19 +322,17 @@ bindsym $mod+ctrl+r restart
 
 # http://i3wm.org/docs/userguide.html#_automatically_starting_applications_on_i3_startup
 
-exec xneur
-exec thunar --daemon
+exec --no-startup-id xneur
+exec --no-startup-id thunar --daemon
 
-#exec skype
-exec nm-applet
-exec dropbox start -i
-exec megasync
+exec --no-startup-id nm-applet
+exec --no-startup-id dropbox start -i
+exec --no-startup-id megasync
 exec --no-startup-id upmpdcli
 
 exec --no-startup-id dunst
-exec redshift-gtk
-exec autorandr --change --default laptop
-# exec sleep 3 && appname
+exec --no-startup-id redshift-gtk
+exec --no-startup-id autorandr --change --default laptop
 
 # --- App rules ---
 
@@ -352,9 +340,6 @@ exec autorandr --change --default laptop
 # class is usually 1st letter Capitalize and everything else lowercase
 # use 'xprop' or 'xwininfo' to get window information
 
-# Skype
-for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floating, move right 450px
-for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
 # Chromium
 for_window [title="Task Manager - Chromium"] floating enable
 # Pulseaudio
@@ -367,17 +352,9 @@ for_window [title="File Operation Progress"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-# assign program to specific workspace
+# TODO: assign program to specific workspace
 #assign [class="app_class"] 8: $wx
 
-
-################
-# Todo list
-################
-# i3bar status
-# timeout suspend system
-# Assign apps to workspace https://github.com/jmazzi/dotfiles/blob/master/.i3/config
-# resize+move
 
 
 ################
@@ -386,9 +363,36 @@ for_window [window_role="task_dialog"] floating enable
 
 # Dmenu
 
-# start dmenu (a program launcher)
+## start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
+## There also is the (new) i3-dmenu-desktop which only displays applications
+## shipping a .desktop file. It is a wrapper around dmenu, so you need that
+## installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+## Skype
+#for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floating, move right 450px
+#for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
+
+## split in horizontal orientation
+#bindsym $mod+b split v
+## split in vertical orientation
+#bindsym $mod+v split h
+
+#bindsym $mod+ctrl+n move container to workspace next
+#bindsym $mod+ctrl+p move container to workspace prev
+
+## change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+## work
+#set $mode_work Work (c) toggle cable (a) switch autorandr to work profile
+#mode "$mode_work" {
+    #bindsym c           exec --no-startup-id ~/Island/cable.zsh, mode "default"
+    #bindsym a           exec --no-startup-id autorandr -l work, mode "default"
+
+    ## back to normal: Enter or Escape
+    #bindsym Return mode "default"
+    #bindsym Escape mode "default"
+#}
+#bindsym $mod+ctrl+w mode "$mode_work"
