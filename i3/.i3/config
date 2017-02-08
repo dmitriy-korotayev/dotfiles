@@ -60,6 +60,8 @@ exec --no-startup-id xset -b off -dpms 600
 exec --no-startup-id setxkbmap -layout lv,ru -option grp:caps_toggle,grp_led:caps
 # keyboard 'typematic' delay
 exec --no-startup-id xset r rate 200 25
+# set primary display (quickfix)
+exec --no-startup-id xrandr --output $po --primary
 
 
 ###################

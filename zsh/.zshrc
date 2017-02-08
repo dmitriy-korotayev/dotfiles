@@ -10,7 +10,7 @@ export EDITOR="vim"
 # }}}
 # Shell {{{
 
-[[ -z "$SSH_CONNECTION" ]] && xset b off # Disable beeps
+#[[ -z "$SSH_CONNECTION" ]] && xset b off # Disable beeps
 # Look {{{
 
 if [[ -z "$SSH_CONNECTION" ]] ; then
