@@ -190,6 +190,9 @@ setopt nohashdirs
 # auto-correction
 setopt correctall
 
+# Auto-rehash on completion (in case new binaries were added to $PATH)
+zstyle ":completion:*:commands" rehash 1
+
 # Use bash-completion, if available
 autoload bashcompinit
 bashcompinit
