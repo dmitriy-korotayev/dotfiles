@@ -230,7 +230,11 @@ export PATH="$HOME/.node_modules/bin:$PATH"
 # NVM {{{
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+
+alias node='unalias node ; unalias npm ; nvm use default ; node $@'
+alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
+
 [ -s "$HOME/.avn/bin/avn.sh" ] && source "$HOME/.avn/bin/avn.sh" # load avn
 
 # }}}
@@ -465,3 +469,25 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 # Server-specific {{{
 [[ -f ~/rc.zsh ]] && source ~/rc.zsh
 # }}}
+
+## Profiling {{{
+
+## set the trace prompt to include seconds, nanoseconds, script name and line number
+#zmodload zsh/datetime
+#setopt promptsubst
+#PS4='+$EPOCHREALTIME %N:%i> '
+## save file stderr to file descriptor 3 and redirect stderr (including trace
+## output) to a file with the script's PID as an extension
+#exec 3>&2 2>/tmp/startlog.$$
+## set options to turn on tracing and expansion of commands contained in the prompt
+#setopt xtrace prompt_subst
+
+## }}}
+## Profiling end {{{
+
+## turn off tracing
+#unsetopt xtrace
+## restore stderr to the value saved in FD 3
+#exec 2>&3 3>&-
+
+## }}}
