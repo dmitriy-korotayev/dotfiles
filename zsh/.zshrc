@@ -219,6 +219,18 @@ SAVEHIST=10000
 # }}}
 
 # }}}
+# Plugins {{{
+
+source ~/.zplug/init.zsh
+
+export NVM_DIR="$HOME/.nvm"
+export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
+zplug "lukechilds/zsh-nvm"
+
+zplug load
+
+# }}}
 # Package-specific {{{
 
 # NPM {{{
@@ -227,23 +239,6 @@ SAVEHIST=10000
 export PATH="$HOME/.node_modules/bin:$PATH"
 
 # }}}
-# NVM {{{
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
-
-alias node='unalias node ; unalias npm ; nvm use default ; node $@'
-alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
-
-[ -s "$HOME/.avn/bin/avn.sh" ] && source "$HOME/.avn/bin/avn.sh" # load avn
-
-# }}}
-# Grunt {{{
-
-#eval "$(grunt --completion=zsh)"
-
-# }}}
-
 # i3wm {{{
 
 export PATH="$HOME/.i3/bin:$PATH"
