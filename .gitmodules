@@ -1,3 +1,9 @@
+[submodule "i3/.i3/bin/autorandr"]
+	path = i3/.i3/bin/autorandr
+	url = https://github.com/wertarbyte/autorandr.git
+[submodule "i3/.i3/i3blocks"]
+	path = i3/.i3/i3blocks
+	url = https://github.com/dmitriy-korotayev/i3blocks.git
 [submodule "i3/.i3/i3-extras"]
 	path = i3/.i3/i3-extras
 	url = https://github.com/dmitriy-korotayev/i3-extras.git
@@ -22,6 +28,3 @@
 [submodule "zsh/.zsh/oh-my-zsh"]
 	path = zsh/.zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "i3/.i3/bin/autorandr"]
-	path = i3/.i3/bin/autorandr
-	url = https://github.com/wertarbyte/autorandr.git

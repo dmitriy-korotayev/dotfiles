@@ -254,7 +254,7 @@ exec --no-startup-id compton -b     # tear-free experience
 
 # Fonts
 
-font pango:monospace 11
+font pango:UbuntuMono Nerd Font 12
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # Colors
@@ -270,6 +270,7 @@ font pango:monospace 11
 # Bar
 
 bar {
+    font pango:Iosevka Nerd Font 12
     status_command i3blocks -c ~/.i3/i3blocks.conf
     colors {
         background #181818
