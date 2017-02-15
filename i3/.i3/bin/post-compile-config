@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Dynamic output names for i3 config
+
+# main output (monitor)
+mo=$(xrandr | grep -w connected | awk -F'[ +]' 'NR==1{print $1}')
+# default outputs list
+declare -A outputs=( [po]="$mo" [so]="$mo" [to]="$mo" )
+# actual outputs
+ids=$(xrandr | grep connected | awk -F'[ +]' '{print $1}')
+# merge
+[ ${ids[1]+t} ] && outputs[so]=${ids[1]}
+[ ${ids[2]+t} ] && outputs[to]=${ids[2]}
+
+# find/replace
+for k in "${!outputs[@]}"; do
+  sed -i "s/%$k%/${outputs[$k]}/g" "$HOME"/.i3/config
+done

@@ -1,0 +1,297 @@
+# i3 config file (with ppi3)
+# vim: ft=config
+
+########################################################################
+# Todo list
+########################################################################
+# timeout suspend system
+
+
+########################################################################
+# Keybindings
+########################################################################
+
+set $mod Mod4         # super key (Mod1 = Alt key)
+set ${p,s,t}o \       # outputs (primary, secondary, tertiary)
+  %{p,s,t}o%
+
+# Workspaces
+
+set $w{1..10} {1..10}: \              # names
+  {web,work,work2,work3,project,project2,,media,tmp,external}
+
+workspace "$w{1..6,10}" \              # output assignment
+  output ${p,p,s,t,s,t,s}o
+
+bindsym $mod{2|,+Shift}+{1|1..9,0} \  # common
+  {2|,move container to }\
+  workspace number {1|1..10}
+
+bindsym $mod{,+Shift}+q \             # last used workspace
+  {,move container to }\
+  workspace back_and_forth
+
+bindsym $mod{,+Shift}+comma \         # next/prev workspace
+  {,move container to }\
+  workspace prev
+bindsym $mod{,+Shift}+period \
+  {,move container to }\
+  workspace next
+
+# Window Manipulation
+
+set $mv 20px     # amount to resize windows (also used for how far to
+set $mvppt 2ppt  #   move floating windows with mod+shift+hjkl)
+
+bindsym $mod{2|,+Shift}+{1|h,j,k,l,\        # focused window manipulation,
+  Left,Down,Up,Right} {2|focus,move} \      # vikeys and arrow key support
+  {1|left,down,up,right}{2|, $mv}
+
+bindsym $mod+{backslash,minus} split {h,v}  # split (| = shift+\)
+bindsym $mod+{s,w,e} \                      # change container layout
+  layout {stacking,tabbed,toggle split}
+bindsym $mod+{a,z} focus {parent,child}     # focus parent/child
+
+bindsym $mod+c kill                         # kill focused window
+bindsym $mod+f fullscreen toggle            # fullscreen
+
+# floating
+bindsym $mod+ctrl+f floating toggle     # tiling / floating
+floating_modifier $mod                  # mouse+$mod for manipulating floating windows
+
+# scratchpad
+#bindsym $mod{,+Shift}+z \
+  #{,move }scratchpad{ show,}
+
+
+# Applications
+
+bindsym $mod+Return exec i3-sensible-terminal # terminal
+bindsym $mod{,+Shift}+space exec rofi \       # rofi (dmenu replacement)
+  -show {run,window}
+bindsym $mod{,+ctrl,+ctrl+shift}+b exec \     # browsers
+  {firefox,firefox-aurora --class="FirefoxAurora",tor-browser-en}
+
+bindsym $mod+i exec nmcli_dmenu               # network
+bindsym $mod+ctrl+m exec thunar               # file Manager
+bindsym $mod{,+ctrl}+p \                      # screenshots
+  exec xfce4-screenshooter{, -r}
+bindsym $mod+ctrl+{v,e} \                     # audio
+  exec {pavucontrol,qpaeq}
+
+# extra
+
+bindsym XF86MonBrightness{Up,Down} \        # brightness keys
+  exec xbacklight {+,-}5%
+bindsym XF86Audio{RaiseVolume,LowerVolume,Mute} \ # audio keys
+  exec pulseaudio-ctl {up,down,mute}
+bindsym XF86{HomePage,Mail} exec xdg-open \ # other media keys
+  {http://youtube.com/feed/subscriptions,https://mail.google.com}
+
+
+########################################################################
+# Modes
+########################################################################
+
+# resize mode (can also resize things via mouse)
+mode "resize" {
+    bindsym {h,j,k,l,Left,Down,Up,Right} resize \
+        {shrink width,grow height,shrink height,grow width} $mv or $mvppt
+    bindsym Shift+{h,j,k,l,Left,Down,Up,Right} resize \
+        {shrink width,grow height,shrink height,grow width} 1px or 1ppt
+
+    bindsym {Return,Escape,space,$mod+r} mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+# work mode
+set $mode_work Work (s) run work script
+mode "$mode_work" {
+    bindsym s           exec ~/o2o/rel/dry/work.zsh, mode "default"
+
+    bindsym {Escape,space,q,$mod+m} mode "default"
+}
+bindsym $mod+ctrl+w mode "$mode_work"
+
+
+# shutdown, reboot, lock screen
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym {l,e,s,h,r,Shift+s} \
+      exec ~/.i3/bin/i3exit \
+        {lock,logout,suspend,hibernate,reboot,shutdown}\
+      , mode "default"
+
+    bindsym {Escape,space,q,$mod+m} mode "default"
+}
+bindsym $mod+ctrl+s mode "$mode_system"
+
+
+# displays (TODO: set up TV and fix this)
+set $mode_display (l) laptop (w) work
+mode "$mode_display" {
+    bindsym {w,l} exec autorandr -l {work,laptop}, mode "default"
+
+    bindsym {Escape,space,q,$mod+m} mode "default"
+}
+#bindsym $mod+m mode "$mode_display"
+
+
+# TODO: toggle(shift) on (b)attery behavior (e.g. suspend on lid close)
+#bindsym $mod+shift+b
+
+
+# mouse mode (moving the cursor and clicking)
+{{
+    def mousemove s
+        ("exec xdotool mousemove_relative -- {-X,0,0,X,-X,X,-X,X} " +
+            "{0,X,-X,0,-X,-X,X,X}").gsub ?X, s.to_s
+    end
+    nil
+}}
+mode "mouse" {
+    bindsym {h,j,k,l,y,u,b,n} {{ mousemove 30 }}
+    bindsym KP_{4,2,8,6,7,9,1,3} {{ mousemove 10 }}
+    # arrow keys: precise, 1-pixel movements
+    bindsym {Left,Down,Up,Right} exec xdotool mousemove_relative -- \
+        {-1 0,0 1,0 -1,1 0}
+    # clicking and such
+    bindsym {Return,Shift+Return,period,comma} exec xdotool \
+        {click 1,click 3,mousedown 1,mouseup 1}
+    # return to normal
+    bindsym {Escape,space,q,$mod+m} mode "default"
+}
+bindsym $mod+Shift+m mode "mouse"
+
+
+mode "mark" {
+    bindsym {a..z} mark {a..z}; mode "default"
+    bindsym BackSpace mark DEL; unmark DEL; mode "default"
+    bindsym {Escape,space,$mod+m} mode "default"
+}
+bindsym $mod+m mode "mark"
+
+mode "focus mark" {
+    bindsym {a..z} [con_mark="{a..z}"] focus; mode "default"
+    bindsym {Escape,space,$mod+slash} mode "default"
+}
+bindsym $mod+slash mode "focus mark"
+
+mode "move to mark" {
+    bindsym {a..z} move window to mark {a..z}; mode "default"
+    bindsym {Escape,space,$mod+Shift+slash} mode "default"
+}
+bindsym $mod+Shift+slash mode "move to mark"
+
+
+# Debug
+
+# restarting/exiting
+bindsym $mod+Shift+c \          # compile config with ppi3 + postprocess
+  exec ppi3 ~/.i3/_config ~/.i3/config \
+  && exec ~/.i3/bin/post-compile-config \
+  && i3-msg reload
+bindsym $mod+Shift+r restart                # restart i3 inplace
+bindsym $mod+Shift+e exec i3-nagbar \       # exit i3 (log out of X)
+  -t warning -m 'You pressed the exit \
+  shortcut. Do you really want to exit \
+  i3? This will end your X session.' \
+  -b 'Yes, exit i3' 'i3-msg exit'
+
+# edit the configuration file
+bindsym $mod+Mod1+c exec urxvt -e zsh -i -c "vim ~/.i3/config"
+
+# toggle compton
+bindsym $mod+ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send 'Compton enabled') || (notify-send 'Compton disabled' && pkill compton)
+
+
+########################################################################
+# Applications
+########################################################################
+
+# autostart
+
+exec {xneur,thunar --daemon}
+exec {nm-applet,dropbox start -i,megasync,upmpdcli}
+exec {dunst,redshift-gtk,autorandr --change --default laptop}
+
+# floating windows
+for_window [{\
+   title="Task Manager - Chromium",\  # Chrome task manager
+   class="(?i)pavucontrol",\          # Pulseaudio
+   class="(?i)qpaeq",\                # Pulseaudio Equalizer
+   title="File Operation Progress",\  # Thunar
+   window_role="pop-up",\             # popups
+   window_role="task_dialog"\
+}] floating enable
+
+# Assign program to specific workspace
+assign [class="^Firefox$"] $w1
+assign [class="FirefoxAurora"] $w3
+
+
+
+########################################################################
+# Trash
+########################################################################
+
+## Skype
+#for_window [title="dmitriy.korotayev - Skype™"] floating enable, focus floating, move right 450px
+#for_window [class="(?i)skype" title="File Transfers"] floating enable, [class="(?i)skype" title="File Transfers"] focus, move left 300px
+
+## change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+## reload xneur
+#bindsym $mod+shift+x exec zsh -c "pkill xneur; sleep 1; xneur"
+
+
+########################################################################
+# Look
+########################################################################
+
+exec --no-startup-id compton -b     # tear-free experience
+
+# Fonts
+
+font pango:monospace 11
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# Colors
+
+## class                 border  backgr. text    indicator child_border
+#client.focused          #383838 #181818 #d8d8d8 #000000   #000000
+#client.focused_inactive #585858 #383838 #b8b8b8 #000000   #000000
+#client.unfocused        #585858 #383838 #b8b8b8 #000000   #000000
+#client.urgent           #dc9656 #ab4642 #d8d8d8 #000000   #000000
+#client.placeholder      #585858 #383838 #b8b8b8 #000000   #000000
+#client.background       #181818
+
+# Bar
+
+bar {
+    status_command i3blocks -c ~/.i3/i3blocks.conf
+    colors {
+        background #181818
+        statusline #d8d8d8
+        separator  #585858
+        focused_workspace  #383838 #181818 #d8d8d8
+        active_workspace   #383838 #181818 #d8d8d8
+        inactive_workspace #585858 #383838 #b8b8b8
+        urgent_workspace   #dc9656 #ab4642 #d8d8d8
+        binding_mode       #dc9656 #ab4642 #d8d8d8
+    }
+}
+
+
+########################################################################
+# Feel
+########################################################################
+
+exec xset b off                 # disable the bell
+exec xset dpms 600              # turn off the screen after 10m
+exec setxkbmap -layout\         # layouts, caps toggle, LED
+  lv,ru -option grp:caps_toggle,grp_led:caps
+exec xset r rate 200 25         # keyboard 'typematic' delay
+exec xrandr --output\           # set primary display
+  $po --primary                 # (quickfix for AMD catalyst)

@@ -1,6 +1,7 @@
 !.gitkeep
 
 i3/.i3/i3log
+i3/.i3/config
 i3/.config/gtk-3.0/bookmarks
 
 vim/.vim/plugged/*/

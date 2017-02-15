@@ -2,8 +2,8 @@
 
 [[ -f ~/.zshenv ]] && source ~/.zshenv
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-export LANG="en_US.utf-8"
-export LC_ALL="en_US.utf-8"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export BROWSER="chromium:google-chrome"
 export EDITOR="vim"
 
