@@ -362,7 +362,7 @@ CheckOnProcess Yes
 # This option disable or enable CapsLock use
 # Example:
 #DisableCapsLock Yes
-DisableCapsLock Yes
+DisableCapsLock No
 
 # This option disable or enable correction spaces befor punctuation
 # Example:

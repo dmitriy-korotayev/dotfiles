@@ -96,7 +96,7 @@ urxvt.keysym.C-V:           perl:clipboard:paste
 urxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
 ! matcher
 urxvt.matcher.button:       1
-urxvt.urlLauncher:          chromium
+urxvt.urlLauncher:          firefox
 
 
 ! --- Fixes ---
