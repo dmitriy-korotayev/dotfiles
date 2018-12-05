@@ -1,28 +1,101 @@
-snippet cl "console.log"
-console.log(${1})
+snippet cl "console.log" !b
+console.log(${1});
 endsnippet
 
-#
-#  Angular snippets
-#
+snippet f "Basic function" !w
+function ${1}(${2}) {
+  ${3}
+}
+endsnippet
 
-snippet tll "this.$log.log"
-this.$log.log(${1})
+snippet r "return" !w
+return ${1}
+endsnippet
+
+snippet d "debug()" !b
+debug(${1});
+endsnippet
+
+snippet of "Object function" !w
+${1}: function(${2}) {
+  ${3}
+}
+endsnippet
+
+snippet qsa "document.querySelectorAll"
+document.querySelectorAll('${1}')
+endsnippet
+
+snippet ael "addEventListener" i
+addEventListener('${1}', ${2})
+endsnippet
+
+snippet iferr "if error" !b
+if (err) {
+${1}
+}
+endsnippet
+
+snippet rerr "return if error" !b
+if (err) return ${1:cb}(err);
+endsnippet
+
+snippet t "then after a promise" !w
+.then(function(${1:val}) {
+${2}
+})${3}
 endsnippet
 
 #
 #  React snippets
 #
 
-snippet sdp "static defaultProps"
-static defaultProps = {
-  ${1}
+snippet rc "Create React Component" !b
+/**
+ * @namespace components
+ * @class ${1/(.*)/$1/}
+ * @constructor
+ * @param {Object} props
+ */
+var ${1/(.*)/$1/} = React.createClass({
+    render: function() {
+        return (
+            <div className="${1/(.*)/$1/}">${2}</div>
+        );
+    }
+});
+
+module.exports = ${1:Component};
+endsnippet
+
+snippet ren "render"
+render: function() {
+	return (
+		${1:<div />}
+	);
+}$0
+endsnippet
+
+snippet sst "set state" b
+this.setState({
+	${1}: ${2}
+});$0
+endsnippet
+
+snippet { "React JSX comment" !w
+{/* ${1} */}
+endsnippet
+
+snippet ac "Action creator function"
+function ${1:name}(${2:args}) {
+	return {
+		type: '${3:type}',
+		${4:args}
+	}
 }
 endsnippet
 
-snippet cs "React.addons.classSet" b
-var cx = React.addons.classSet;
-endsnippet
+# Callbacks
 
 snippet cdm "component did mount" b
 componentDidMount: function() {
@@ -60,14 +133,24 @@ componentWillUpdate: function(nextProps, nextState) {
 },$0
 endsnippet
 
-snippet cx
-cx({
-	${1}: ${2}
-});
+snippet scu "should component update"
+shouldComponentUpdate: function(nextProps, nextState) {
+	${1}
+},$0
 endsnippet
 
-snippet fup
-forceUpdate(${1:callback});
+# Props
+
+snippet pt "propTypes" b
+propTypes: {
+	${1}: React.PropTypes.${2:string}
+},
+endsnippet
+
+snippet sdp "static defaultProps"
+static defaultProps = {
+  ${1}
+}
 endsnippet
 
 snippet gdp "get default props" b
@@ -78,277 +161,3 @@ getDefaultProps: function() {
 },$0
 endsnippet
 
-snippet gis "get initial state" b
-getInitialState: function() {
-	return {
-		${1}: ${2}
-	};
-},$0
-endsnippet
-
-snippet ism "is mounted"
-isMounted()
-endsnippet
-
-snippet jsx "define jsx dom" b
-/**
- * @jsx React.DOM
- */
-
-var React = require('react');
-}
-var ${2:ClassName} = React.createClass({
-
-render: function() {
-	return (
-		${VISUAL}$4
-	);
-}
-
-});
-$0
-${3:module.exports = $2;}
-endsnippet
-
-snippet pt "propTypes" b
-propTypes: {
-	${1}: React.PropTypes.${2:string}
-},
-endsnippet
-
-snippet rcc "create class/component" b
-var ${1:ClassName} = React.createClass({
-
-render: function() {
-	return (
-		${VISUAL}$2
-	);
-}
-
-});
-$0
-endsnippet
-
-snippet ren
-render: function() {
-	return (
-		${1:<div />}
-	);
-}$0
-endsnippet
-
-snippet sst "set state" b
-this.setState({
-	${1}: ${2}
-});$0
-endsnippet
-
-snippet scu "should component update"
-shouldComponentUpdate: function(nextProps, nextState) {
-	${1}
-},$0
-endsnippet
-
-snippet props "get property" i
-this.props.${1}
-endsnippet
-
-snippet state "get state" i
-this.state.${1}
-endsnippet
-
-snippet trp
-this.transferPropsTo(${VISUAL}$0);
-endsnippet
-
-
-snippet f "Basic function" !w
-function ${1} (${2}) {
-  ${3}
-}
-endsnippet
-snippet of "Object function" !w
-${1}: function (${2}) {
-  ${3}
-}
-endsnippet
-
-#
-#  Simple snippets
-#
-
-snippet r "return" !w
-return ${1}
-endsnippet
-
-snippet p "Promise" !w
-new Promise(function(resolve, reject){
-${1}
-});
-endsnippet
-
-snippet bp "break point" !w
-debugger;
-endsnippet
-
-snippet f, "Basic function with comma" !w
-function${3}(${1}) {
-${2}
-},
-endsnippet
-
-snippet f; "Basic function with semicolon" !w
-function${3}(${1}) {
-${2}
-};
-endsnippet
-
-snippet c "Callback" !w
-function(${1:err}) {
-${2}
-})
-endsnippet
-
-snippet c; "Callback with semicolon" !w
-function(${1:err}) {
-${2}
-});
-endsnippet
-
-snippet iferr "if error" !b
-if (err) {
-${1}
-}
-endsnippet
-
-snippet rerr "return if error" !b
-if (err) return ${1:cb}(err);
-endsnippet
-
-snippet d "console.log()" !b
-debug(${1});
-endsnippet
-
-snippet { "React JSX comment" !w
-{/* ${1} */}
-endsnippet
-
-snippet l "console.log()" !b
-console.log(${1});
-endsnippet
-
-snippet i "console.info()" !b
-console.info(${1});
-endsnippet
-
-snippet w "console.warn()" !b
-console.warn(${1});
-endsnippet
-
-snippet e "console.error()" !b
-console.error(${1});
-endsnippet
-
-snippet b "require(bluebird)" !b
-var Promise = require("bluebird");
-endsnippet
-
-snippet m "module.exports" !b
-module.exports = 
-endsnippet
-
-snippet i "Mocha it" !bw
-it("${1}", function() {
-${2}
-});
-endsnippet
-
-snippet desc "Mocha describe" !b
-describe("${1}", function() {
-${2}
-});
-endsnippet
-
-snippet mocha "Mocha globals" !b
-/*global it, describe, before, beforeEach, after, afterEach */
-endsnippet
-
-snippet ifmain "if (require.main === module)" !b
-if (require.main === module) {
-${1}
-}
-endsnippet
-
-snippet bs "Super (Backbone)" !b
-${1:Backbone.Model}.prototype.${2:constructor}.apply(this, arguments);
-endsnippet
-snippet super "Super (Backbone)" !b
-${1:Backbone.Model}.prototype.${2:constructor}.apply(this, arguments);
-endsnippet
-
-snippet exit "process.exit(0);" !b
-process.exit(${1:0});
-endsnippet
-
-snippet jsx "Add JSX comment" !b
-/** @jsx React.DOM */
-endsnippet
-
-snippet react "Create React Component" !b
-/**
- * @namespace components
- * @class ${1/(.*)/$1/}
- * @constructor
- * @param {Object} props
- */
-var ${1/(.*)/$1/} = React.createClass({
-    render: function() {
-        return (
-            <div className="${1/(.*)/$1/}">${2}</div>
-        );
-    }
-});
-
-module.exports = ${1:Component};
-endsnippet
-
-snippet me "Create method with docstring" !b
-/**
- * ${3:TODO}
- *
- * @method ${1/(.*)/$1/}
- */
-${1:method}: function(){
-${2}
-},
-endsnippet
-
-snippet ifnew "Create new instances without new" !b
-if (!(this instanceof ${1:Klass})) return new ${1/(.*)/$1/}(${2:opts});
-endsnippet
-
-snippet use "use strict" !b
-"use strict";
-endsnippet
-
-snippet re "require(module)" !b
-var ${1:React} = require("$2${1/(.*)/$1/}");
-endsnippet
-
-snippet remove "Remove element from array" !b
-var ${3:i} = ${1:array}.indexOf(${2:value});
-if (${3/(.*)/$1/} > -1) ${1/(.*)/$1/}.splice(${3/(.*)/$1/}, 1);
-endsnippet
-
-
-snippet ** "yuidoc comment" !b
-/**
- * @${2}
- */
-endsnippet
-
-snippet t "then after a promise" !w
-.then(function(${1:val}) {
-${2}
-})${3}
-endsnippet

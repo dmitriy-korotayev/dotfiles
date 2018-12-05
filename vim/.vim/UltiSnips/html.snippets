@@ -1,0 +1,162 @@
+snippet doctype "HTML - 5.0 (doctype)" b
+<!DOCTYPE html>
+
+endsnippet
+
+#############
+# HTML TAGS #
+#############
+snippet a "Link" w
+<a href="${1:http://www.${2:url.com}}"${3: target="_blank"}>${4:Anchor Text}</a>
+endsnippet
+
+snippet article "<article>"
+<article>
+	${1:article content}
+</article>
+endsnippet
+
+snippet aside "<aside>"
+<aside>
+	${1:aside content}
+</aside>
+endsnippet
+
+snippet base "HTML <base>" w
+<base href="$1"${2: target="$3"}`!p x(snip)`>
+endsnippet
+
+snippet body "<body>"
+<body>
+	${0:${VISUAL}}
+</body>
+endsnippet
+
+snippet div# "<div> with ID & class" w
+<div`!p snip.rv=' id="' if t[1] else ""`${1:name}`!p snip.rv = '"' if t[1] else ""``!p snip.rv=' class="' if t[2] else ""`${2:name}`!p snip.rv = '"' if t[2] else ""`>
+	${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet div. "<div> with class" w
+<div`!p snip.rv=' class="' if t[1] else ""`${1:name}`!p snip.rv = '"' if t[1] else ""`>
+	${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet fieldset "Fieldset" w
+<fieldset id="${1/[\w\d]+|( )/(?1:_:\L$0\E)/g}" ${2:class="${3:}"}>
+	<legend>$1</legend>
+	${0:${VISUAL}}
+</fieldset>
+endsnippet
+
+snippet fig "<figure>"
+<figure>
+$1
+<figcaption>$2</figcaption>
+</figure>
+endsnippet
+
+snippet form "HTML <form>" w
+<form action="${1:`!p
+snip.rv = (snip.basename or 'unnamed') + '_submit'
+`}" method="${2:get}" accept-charset="utf-8">
+	${0:${VISUAL}}
+</form>
+endsnippet
+
+snippet head "HTML <head>"
+<head>
+	<meta charset="utf-8">
+	<title>${1:`!p snip.rv = snip.basename or "Page Title"`}</title>
+	${0:${VISUAL}}
+</head>
+endsnippet
+
+snippet html "HTML basic structure" b
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>${1:`!p snip.rv = snip.basename.replace('-', ' ').capitalize()`}</title>
+	</head>
+	<body>
+		${0:body}
+	</body>
+</html>
+endsnippet
+
+snippet htmll "HTML basic structure with the lang attribute" b
+<!DOCTYPE html>
+<html lang="${1:es}">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>${2:`!p snip.rv = snip.basename.replace('-', ' ').capitalize()`}</title>
+	</head>
+	<body>
+		${0:body}
+	</body>
+</html>
+endsnippet
+
+snippet img "<img>"
+<img src="$1" alt="$2">
+endsnippet
+
+snippet input "HTML <input>" w
+<input type="${1:text/submit/hidden/button}" name="${2:some_name}" value="$3"${4: id="${5:$2}"}`!p x(snip)`>
+endsnippet
+
+snippet link "HTML <link>" w
+<link rel="${1:stylesheet}" href="${2:/css/master.css}" type="text/css" media="${3:screen}" title="${4:no title}" charset="${5:utf-8}"`!p x(snip)`>
+endsnippet
+
+snippet meta "HTML <meta>" w
+<meta name="${1:name}" content="${2:content}"`!p x(snip)`>
+endsnippet
+
+snippet option "Option" w
+<option${1: value="${2:option}"}>${3:$2}</option>
+endsnippet
+
+snippet script "HTML <script src...>" w
+<script src="$1" charset="${3:utf-8}"></script>
+endsnippet
+
+snippet select "Select Box" w
+<select name="${1:some_name}" id="${2:$1}"${3:${4: multiple}${5: size="${6:1}"}}>
+	${0:${VISUAL}}
+</select>
+endsnippet
+
+snippet span# "<span> with ID & class" w
+<span`!p snip.rv=' id="' if t[1] else ""`${1:name}`!p snip.rv = '"' if t[1] else ""``!p snip.rv=' class="' if t[2] else ""`${2:name}`!p snip.rv = '"' if t[2] else ""`>${0:${VISUAL}}</span>
+endsnippet
+
+snippet span. "<span> with class" w
+<span`!p snip.rv=' class="' if t[1] else ""`${1:name}`!p snip.rv = '"' if t[1] else ""`>${0:${VISUAL}}</span>
+endsnippet
+
+snippet style "HTML <style>" w
+<style type="text/css" media="screen">
+	${0:${VISUAL}}
+</style>
+endsnippet
+
+snippet textarea "HTML <textarea>" w
+<textarea name="${1:Name}" rows="${2:8}" cols="${3:40}">$0</textarea>
+endsnippet
+
+snippet title "HTML <title>" w
+<title>${1:`!p snip.rv = snip.basename or "Page Title"`}</title>
+endsnippet
+
+snippet viewport "Responsive viewport meta" w
+<meta name="viewport" content="width=device-width, initial-scale=1">
+endsnippet
+
+# vim:ft=snippets:
+
