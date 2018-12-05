@@ -28,3 +28,7 @@
 [submodule "zsh/.zsh/oh-my-zsh"]
 	path = zsh/.zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+
+[submodule "ref/gotbletu"]
+	path = ref/gotbletu
+	url = https://github.com/gotbletu/dotfiles.git
