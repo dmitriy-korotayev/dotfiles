@@ -1,29 +1,54 @@
 [global]
-    font = "Monospace 8"
-    allow_markup = yes
-    format = "<b>%s %p</b>\n%b"
-    sort = yes
-    indicate_hidden = true
-    # geometry = "x5"
-    idle_threshold = 0
-    geometry = "300x5-20+20"
-    alignment = center
-    show_age_threshold = 60
-    sticky_history = yes
+    monitor = :0
     follow = mouse
-    word_wrap = yes
+
+    geometry = "300x5-20+20"
+    indicate_hidden = true
+    shrink = no
+    transparency = 0
+
+    notification_height = 0
     separator_height = 2
     padding = 10
     horizontal_padding = 10
+    frame_width = 3
+    frame_color = "#222222"
     separator_color = frame
-    startup_notification = true
-    dmenu = "/usr/bin/dmenu -p dunst: -nb #FFFFFF -nf #000000 -sb #94DBFF -sf #000000"
-    browser = /home/knopwob/bin/url_dispatcher
 
+    sort = yes
+    idle_threshold = 0
 
-[frame]
-    width = 3
-    color = "#000000"
+    font = Monospace 8
+    line_height = 0
+    markup = full
+    format = "<b>%s %p</b>\n%b"
+
+    alignment = center
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+
+    icon_position = off
+    max_icon_size = 32
+    icon_path = /usr/share/icons/Arc/status/16/:/usr/share/icons/Arc/devices/16/
+
+    sticky_history = yes
+    history_length = 20
+
+    dmenu = /usr/bin/dmenu -p dunst:
+    browser = /usr/bin/firefox -new-tab
+    always_run_script = true
+
+    title = Dunst
+    class = Dunst
+    startup_notification = false
+    # TODO: update xrandr to 1.5
+    force_xinerama = true
+
 
 [shortcuts]
     close = ctrl+space
@@ -45,77 +70,4 @@
     background = "#ff9999"
     foreground = "#000000"
     timeout = 0
-
-
-[libpurple_signed]
-    appname = libpurple
-    summary = *igned*
-    urgency = low
-    timeout = 3
-    background = "#ccff33"
-
-[libpurple_came_back]
-    appname = libpurple
-    summary = "*came*"
-    format = ""
-
-[libpurple_went_away]
-    appname = libpurple
-    summary = "*went*"
-    format = ""
-
-[libpurple_says]
-    appname = libpurple
-    summary = *ays*
-    urgency = critical
-    background = "#ccff33"
-
-[libpurple]
-    appname = libpurple
-    urgency = critical
-    background = "#ccff33"
-
-[twitter]
-    appname = Pidgin
-    summary = *twitter.com*
-    urgency = low
-
-[turpial]
-    appname = Turpial
-    urgency = low
-
-[ttytter]
-    summary = "TTYtter*"
-    urgency = low
-
-[dunst-sum]
-    appname = gmailnotify.py
-    summary = "*[dD]unst*"
-    urgency = critical
-
-[dunst-body]
-    appname = gmailnotify.py
-    body = "*[dD]unst*"
-    urgency = critical
-
-[mcabber]
-    appname = notify-send
-    summary = "*jabber*"
-    urgency = critical
-
-[irc]
-    appname = weechat
-    timeout = 0
-    background = "#99FF33"
-    foreground = "#000000"
-
-[XChat]
-    appname = XChat
-    timeout = 0
-    background = "#99FF33"
-    foreground = "#000000"
-
-[test]
-    summary = "*test*"
-    background="#22dd22"
 

@@ -1,5 +1,4 @@
 # i3 config file (with ppi3)
-# vim: ft=config
 
 #######################################################################
 # Todo list
@@ -70,7 +69,7 @@ bindsym $mod+Return exec i3-sensible-terminal # terminal
 bindsym $mod{,+Shift}+space exec rofi \       # rofi (dmenu replacement)
   -show {run,window}
 bindsym $mod{,+ctrl,+ctrl+shift}+b exec \     # browsers
-  {firefox,firefox-aurora --class="FirefoxAurora",tor-browser-en}
+  {firefox,firefox-developer-edition --class="FirefoxDev",tor-browser-en}
 
 bindsym $mod+i exec nmcli_dmenu               # network
 bindsym $mod+ctrl+m exec thunar               # file Manager
@@ -200,10 +199,12 @@ bindsym $mod+Shift+e exec i3-nagbar \       # exit i3 (log out of X)
   -b 'Yes, exit i3' 'i3-msg exit'
 
 # edit the configuration file
-bindsym $mod+Mod1+c exec urxvt -e zsh -i -c "vim ~/.i3/config"
+bindsym $mod+Mod1+c exec urxvt -e zsh -i -c "xdg-open ~/.i3/_config"
 
 # toggle compton
-bindsym $mod+ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send 'Compton enabled') || (notify-send 'Compton disabled' && pkill compton)
+bindsym $mod+Ctrl+c exec [[ -z $(pidof compton) ]] && (compton -b && notify-send 'Compton enabled') || (notify-send 'Compton disabled' && pkill compton)
+# restart Xneur
+bindsym $mod+Shift+x exec ~/bin/rexneur.sh
 
 
 #######################################################################
@@ -228,7 +229,7 @@ for_window [{\
 
 # Assign program to specific workspace
 assign [class="^Firefox$"] $w1
-assign [class="FirefoxAurora"] $w3
+assign [class="FirefoxDev"] $w3
 
 
 
@@ -284,15 +285,4 @@ bar {
     }
 }
 
-
-#######################################################################
-# Feel
-#######################################################################
-
-exec xset b off                 # disable the bell
-exec xset dpms 600              # turn off the screen after 10m
-exec setxkbmap -layout\         # layouts, caps toggle, LED
-  lv,ru -option grp:caps_toggle,grp_led:caps
-exec xset r rate 200 25         # keyboard 'typematic' delay
-exec xrandr --output\           # set primary display
-  $po --primary                 # (quickfix for AMD catalyst)
+# vim: ft=config
