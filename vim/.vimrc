@@ -51,6 +51,32 @@ Plug 'coderifous/textobj-word-column.vim'
 Plug 'tpope/vim-abolish'
 " delimitMate - auto-completion for ({["'`
 Plug 'Raimondi/delimitMate'
+
+if has('nvim')
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+
+    " enable ncm2 for all buffers
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+
+    " IMPORTANTE: :help Ncm2PopupOpen for more information
+    set completeopt=noinsert,menuone,noselect
+
+    " sources
+    Plug 'ncm2/ncm2-match-highlight'
+    Plug 'ncm2/ncm2-ultisnips'
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-tmux'
+    Plug 'ncm2/ncm2-path'
+    Plug 'ncm2/ncm2-github'
+
+
+    Plug 'ncm2/ncm2-html-subscope'
+    Plug 'ncm2/ncm2-markdown-subscope'
+    Plug 'ncm2/ncm2-cssomni'
+    Plug 'ncm2/ncm2-tern'
+endif
+
 if !lite
     " UltiSnips - best snippet engine (python-based)
     Plug 'SirVer/ultisnips'
@@ -119,6 +145,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 
 " Tern-based (improved) javascript editing
 "Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'roxma/nvim-cm-tern', {'do': 'npm install'}
 
 " detect extensionless node scripts (executables) via shebang
 " and add gf for going to node_modules files
@@ -812,6 +839,53 @@ nnoremap <leader>L :LinediffReset<cr>
 nnoremap <F3> :MRU<CR>
 let MRU_File = expand('~/.vim/tmp/plugin_mru_files')
 
+" }}}
+" ncm2 {{{
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    set completeopt=noinsert,menuone,noselect
+    set shortmess+=c
+
+    inoremap <c-c> <ESC>
+
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+    " inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("", 'n') : "\<CR>" ))
+
+    " c-j c-k for moving in snippet
+    imap <expr> <c-u> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+    smap <c-u> <Plug>(ultisnips_expand)
+    let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+    let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+    let g:UltiSnipsRemoveSelectModeMappings = 0
+
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+    let g:LanguageClient_serverCommands = {
+                \ 'vue': ['vls'],
+                \ 'rust': ['rls'],
+                \ }
+
+    " read
+    " https://github.com/autozimu/LanguageClient-neovim/pull/514#issuecomment-404463033
+    " for contents of settings.json for vue-language-server
+    let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+    let g:LanguageClient_completionPreferTextEdit = 1
+    autocmd BufNewFile,BufRead *.vue set filetype=vue
+    autocmd filetype vue LanguageClientStart
+
+    " the suddennly popup of diagnostics sign is kind of annoying
+    let g:LanguageClient_diagnosticsSignsMax = 0
+
+    " " for debugging LanguageClient-neovim
+    " set noshowmode
+    " inoremap <silent> <c-q> <esc>:<c-u>q!<cr>
+    " let g:LanguageClient_loggingFile = '/tmp/lc.log'
+    " let g:LanguageClient_loggingLevel = 'DEBUG'
 " }}}
 " NERD Tree {{{
 
