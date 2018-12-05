@@ -4,11 +4,11 @@
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export BROWSER="chromium:google-chrome"
-export EDITOR="vim"
+export BROWSER="firefox"
+export EDITOR="nvim"
+export TERM='xterm'
 
 # }}}
-# Shell {{{
 
 #[[ -z "$SSH_CONNECTION" ]] && xset b off # Disable beeps
 # Look {{{
@@ -152,6 +152,18 @@ bindkey '^h' backward-delete-char
 # ctrl-r starts searching history backward
 bindkey '^r' history-incremental-search-backward
 
+# Bang! Previous Command Hotkeys
+# print previous command but only the first nth arguments
+# Alt+1, Alt+2 ...etc
+# http://www.softpanorama.org/Scripting/Shellorama/bash_command_history_reuse.shtml#Bang_commands
+bindkey -s '\e1' "!:0 \t"        # last command
+bindkey -s '\e2' "!:0-1 \t"      # last command + 1st argument
+bindkey -s '\e3' "!:0-2 \t"      # last command + 1st-2nd argument
+bindkey -s '\e4' "!:0-3 \t"      # last command + 1st-3rd argument
+bindkey -s '\e5' "!:0-4 \t"      # last command + 1st-4th argument
+bindkey -s '\e`' "!:0- \t"       # all but the last argument
+bindkey -s '\e9' "!:0 !:2* \t"   # all but the 1st argument (aka 2nd word)
+
 # }}}
 # Completions (ref.2) {{{
 
@@ -198,11 +210,17 @@ autoload bashcompinit
 bashcompinit
 if [ -f /etc/bash_completion ]; then source /etc/bash_completion; fi
 
-# Add dynamic-colors completions
+# Specific completions {{{
+
+# dynamic-colors
 [[ -z "$SSH_CONNECTION" ]] && source $HOME/.urxvt/dynamic-colors/completions/dynamic-colors.zsh
+# wp-cli
+if [ -f /usr/share/bash-completion/completions/wp ]; then source /usr/share/bash-completion/completions/wp; fi
 
 # }}}
-# History file {{{
+
+# }}}
+# History {{{
 
 # append to history file
 setopt appendhistory
@@ -218,7 +236,6 @@ SAVEHIST=10000
 
 # }}}
 
-# }}}
 # Plugins {{{
 
 source ~/.zplug/init.zsh
@@ -226,17 +243,26 @@ source ~/.zplug/init.zsh
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 export NVM_AUTO_USE=true
+
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "b4b4r07/zsh-vimode-visual", defer:3
 zplug "lukechilds/zsh-nvm"
 
 zplug load
 
+# fzf completion
+source "/usr/share/fzf/key-bindings.zsh"
+source "/usr/share/fzf/completion.zsh"
+
 # }}}
 # Package-specific {{{
 
-# NPM {{{
+# NPM / Yarn {{{
 
 # user-level global node modules
 export PATH="$HOME/.node_modules/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
 
 # }}}
 # i3wm {{{
@@ -261,11 +287,17 @@ export PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin:$HOME/.gem/ruby/2.1.0/bin:$HOME/.gem
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # }}}
+# ZMV {{{
+
+# http://onethingwell.org/post/24608988305/zmv
+autoload zmv
+
+# }}}
 
 # }}}
 # Aliases (options and variations for existing, convenient shortcuts) {{{
 
-# Default options for existing {{{
+# Default options {{{
 
 alias mkdir='mkdir -p'
 alias grep='grep --color=auto'
@@ -308,6 +340,12 @@ alias syst="sudo systemctl status"
 alias syr="sudo systemctl restart"
 alias sye="sudo systemctl enable"
 alias syd="sudo systemctl disable"
+alias sus="systemctl --user start"
+alias susp="systemctl --user stop"
+alias sust="systemctl --user status"
+alias sur="systemctl --user restart"
+alias sue="systemctl --user enable"
+alias sud="systemctl --user disable"
 alias sydr="sudo systemctl daemon-reload"
 
 # }}}
@@ -326,12 +364,15 @@ alias ylo="$package_manager -Qdt"             # '[l]ist [o]rphans'   - list all 
 alias ylf="$package_manager -Ql"              # '[l]ist [f]iles'     - list all files installed by a given package
 # Use Reflector to populate mirrorlist with fastest mirrors
 alias yrl="sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias yunlock="sudo rm /var/lib/pacman/db.lck"
 
 # }}}
 
 # }}}
 # Convenient shortcuts {{{
 
+# TODO: Timer / when it will suspend
+function sleepin() { echo "System going to suspend in $1"; eval "sleep $1 && systemctl suspend" }
 # Wine {{{
 
 alias wine32="WINEARCH=win32 WINEPREFIX=~/.wine32 wine"
@@ -340,7 +381,7 @@ function photoshop() { eval "WINEARCH=win32 WINEPREFIX=~/.wine32 wine 'C:\\Progr
 # Sudo apps and actions {{{
 
 if [ $UID -ne 0 ]; then
-  alias svim='sudo vim'
+  alias svim='sudo -e'
   alias root='sudo su'
   alias scat='sudo cat'
   alias reboot='sudo systemctl reboot'
@@ -363,11 +404,6 @@ alias du1='du --max-depth=1'
 alias ff='find . -name $*'
 alias hist='history | grep'         # requires an argument
 alias pgg='ps -Af | grep'           # requires an argument
-
-# }}}
-# Work {{{
-
-alias c='app/console' # usual symfony console
 
 # }}}
 # Xclip {{{
@@ -397,7 +433,7 @@ alias openports='ss --all --numeric --processes --ipv4 --ipv6'
 # Open thunar in current directory, optional repeat count
 t() { for i in {1..${1:=1}}; do nohup thunar . >/dev/null 2>&1&; done }
 # Open urxvt in current directory, optional repeat count
-n() { for i in {1..${1:=1}}; do nohup urxvt >/dev/null 2>&1&; done }
+n() { for i in {1..${1:=1}}; do nohup $TERM >/dev/null 2>&1&; done }
 
 # mkdir -p + cd
 mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
@@ -406,6 +442,7 @@ duc() { find -maxdepth ${1:=1} -type d | while read -r dir; do printf "%s:\t" "$
 
 # Workarounds (app restarts, etc..) {{{
 
+function erc { xdg-open ~/.zshrc; rerc }
 function rerc { source ~/.zshrc }
 function repulse { pulseaudio -k && pulseaudio --start }
 function remouse { sudo modprobe -r psmouse; sudo modprobe psmouse; }
@@ -415,6 +452,7 @@ function repacman { sudo rm /var/lib/pacman/db.lck; }
 # }}}
 
 # }}}
+
 zstyle :compinstall filename '/home/dmitriy/.zshrc'
 
 # References {{{
