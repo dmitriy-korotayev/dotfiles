@@ -63,6 +63,8 @@ endif
 
 " Ag.vim - Ack.vim alternative
 Plug 'rking/ag.vim'
+" Ale - Asynchronous Lint Engine
+Plug 'w0rp/ale'
 " BufferLine - buffers in the command line
 Plug 'bling/vim-bufferline'
 " :BufOnly - leave only current buffer
@@ -84,20 +86,14 @@ if !lite
 endif
 " :Rename the current file and retain relative path
 Plug 'danro/rename.vim'
-" Syntastic - syntax-checking
-Plug 'scrooloose/syntastic'
 
 " }}}
 " Filetype-specific {{{
 
 " Most of language packs you'll need
 Plug 'sheerun/vim-polyglot'
-" CSS & preprocessors {{{
-
-" Syntastic plugin for sass
-Plug 'gcorne/vim-sass-lint'
-
-" }}}
+" Bash
+" Plug 'vim-scripts/bash-support.vim'
 " HTML & preprocessors {{{
 
 " Emmet - expanding html abbreviations
@@ -107,8 +103,8 @@ Plug 'mattn/emmet-vim'
 Plug 'tmhedberg/matchit'
 " MatchTag - highlight matching tag
 Plug 'gregsexton/MatchTag'
-" CloseTag - Automatically closes HTML tags on </
-Plug 'vim-scripts/closetag.vim'
+" CloseTag - Automatically closes HTML tags on >
+Plug 'alvan/closetag.vim'
 
 " Ragtag - Useful mappings like <C-X>= or <C-X><Space>
 " for XML/HTML and dynamic content files
@@ -123,9 +119,6 @@ Plug 'othree/javascript-libraries-syntax.vim'
 
 " Tern-based (improved) javascript editing
 "Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-
-" Eslint syntastic plugin (uses local rather than global)
-Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " detect extensionless node scripts (executables) via shebang
 " and add gf for going to node_modules files
@@ -204,9 +197,9 @@ endif
 
 " }}}
 " redraws {{{
-"set ttyfast " u got a fast terminal
+set ttyfast " u got a fast terminal
 "set ttyscroll=3
-"set lazyredraw " to avoid scrolling problems
+set lazyredraw " to avoid scrolling problems
 " }}}
 
 " }}}
@@ -538,10 +531,10 @@ nnoremap <leader>bd :1,1000bd<CR>:bd<CR><CR>
 " }}}
 " Other {{{
 
-" Edit vim file
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" Edit vimrc file
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 " Refresh vimrc and vim itself
-nnoremap <silent> <Leader>rv :source $MYVIMRC<CR>
+nnoremap <silent> <leader>rv :source $MYVIMRC<CR>
 
 " }}}
 
@@ -686,7 +679,7 @@ augroup ft_css
     au BufNewFile,BufRead *.less setlocal filetype=less
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype less,css setlocal iskeyword+=-
-    au Filetype css setlocal sw=4 ts=4 sts=4
+    au Filetype css setlocal sw=2 ts=2 sts=2
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
@@ -737,21 +730,12 @@ augroup ft_sh
 augroup END
 
 " }}}
-"" PHP {{{
+" PHP {{{
 
-"" *.tpl files are usually php
-"au BufRead,BufNewFile *.tpl set filetype=php
+" *.tpl files are usually php
+au BufRead,BufNewFile *.tpl set filetype=php
 
-"" check PHP syntax with Ctrl + L
-"au FileType php noremap <C-L> :!/usr/bin/env php -l %<CR>
-
-"" Refresh folds
-"au FileType php noremap <leader>rf :EnablePHPFolds<CR>zMzv
-
-""au FileType php set omnifunc=phpcomplete#CompletePHP
-"set completeopt-=preview
-""let php_sql_query=1
-""let php_htmlInStrings=1
+au FileType php set omnifunc=phpcomplete#CompletePHP
 
 "" }}}
 
@@ -772,7 +756,8 @@ let g:clam_autoreturn = 1
 " }}}
 " CloseTag {{{
 
-let g:closetag_filenames = "*.html,*.js"
+let g:closetag_filenames = "*.html,*.js,*.jsx,*.php"
+au FileType html,javascript.jsx,php let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " }}}
 " ctrl-p {{{
@@ -783,8 +768,13 @@ let g:ctrlp_open_multiple_files = 'i'
 " }}}
 " delimitMate {{{
 
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 au FileType vim let b:delimitMate_quotes = "'"
 
+" }}}
+" Emmet {{{
+let g:user_emmet_settings={'javascript.jsx': {'extends':'jsx'}}
 " }}}
 " Fugitive {{{
 
@@ -837,6 +827,9 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " }}}
+" NERDCommenter {{{
+let NERDSpaceDelims=1
+" }}}
 " StripWhitespace {{{
 
 nnoremap <leader>w :StripWhitespace<cr>
@@ -845,26 +838,6 @@ nnoremap <leader>w :StripWhitespace<cr>
 " Vdebug {{{
 
 let g:vdebug_options = {"port":9001}
-
-" }}}
-" Syntastic {{{
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_enable_signs = 1
-" breaks vimgrep
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_scss_checkers = ['sasslint']
-
-"let syntastic_mode_map = { 'passive_filetypes': ['html','cucumber','ruby','php'] }
-"let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
 " Tabular {{{
@@ -906,25 +879,6 @@ let g:UltiSnipsExpandTrigger="<c-e>"
 let g:vdebug_options = {"port":9001}
 
 " }}}
-" YouCompleteMe {{{
-
-au Filetype less,css let g:ycm_seed_identifiers_with_syntax = 1
-
-" }}}
-
-" Trash {{{
-
-" Airline {{{
-
-"let g:airline_powerline_fonts = 1
-
-" }}}
-" Powerline {{{
-"let g:Powerline_symbols = 'fancy'
-"let g:Powerline_colorscheme = 'solarized16'
-" }}}
-
-" }}}
 
 " }}}
 
@@ -938,50 +892,5 @@ imap <ESC>oC <ESC>li
 imap <ESC>oD <ESC>hi
 
 " }}}
-
-" }}}
-
-" TODO {{{
-" }}}
-" Trash {{{
-
-" Line Return {{{
-
-" Make sure Vim returns to the same line when you reopen a file.
-" Thanks, Amit
-
-"augroup line_return
-"au!
-"au BufReadPost *
-    "\ if line("'\"") > 0 && line("'\"") <= line("$") |
-    "\     execute 'normal! g`"zvzz' |
-    "\ endif
-"augroup END
-
-" }}}
-" OrgMode {{{
-
-let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-let g:org_todo_keywords = ['TODO', '|', 'DONE']
-let g:org_debug = 1
-
-" }}}
-
-function! MyFoldText() " {{{
-let line = getline(v:foldstart)
-
-let nucolwidth = &fdc + &number * &numberwidth
-let windowwidth = winwidth(0) - nucolwidth - 3
-let foldedlinecount = v:foldend - v:foldstart
-
-" expand tabs into spaces
-let onetab = strpart('          ', 0, &tabstop)
-let line = substitute(line, '\t', onetab, 'g')
-
-let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-"set foldtext=MyFoldText()
 
 " }}}
