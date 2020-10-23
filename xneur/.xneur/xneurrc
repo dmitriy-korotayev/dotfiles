@@ -8,10 +8,10 @@ Version 0.16.0
 ManualMode Yes
 
 # Level of messages program will write to output
-LogLevel Error
+# LogLevel Error
 #LogLevel Warning
 #LogLevel Log
-#LogLevel Debug
+LogLevel Debug
 #LogLevel Trace
 #LogLevel Debug
 
