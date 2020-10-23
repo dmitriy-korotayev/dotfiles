@@ -299,6 +299,7 @@ autoload zmv
 
 # Default options {{{
 
+alias tmux='tmux -2'
 alias mkdir='mkdir -p'
 alias grep='grep --color=auto'
 alias more='less'
@@ -349,10 +350,10 @@ alias sud="systemctl --user disable"
 alias sydr="sudo systemctl daemon-reload"
 
 # }}}
-# Yaourt {{{
+# Yay {{{
 
-(( $+commands[yaourt] )) && package_manager='yaourt' || package_manager='sudo pacman'
-alias y="  $package_manager"                  # default action       - Yaourt
+(( $+commands[yay] )) && package_manager='yay' || package_manager='sudo pacman'
+alias y="  $package_manager"                  # default action       - yay
 alias ys=" $package_manager -S"               # '[s]ync'             - install one or more packages
 alias yu=" $package_manager -Syu"             # '[u]pdate'           - upgrade all packages to their newest version
 alias yua="$package_manager -Syua"            # '[u]pdate with [aur]'- upgrade all packages to their newest version + aur
@@ -363,7 +364,7 @@ alias yi=" $package_manager -Si"              # '[i]nfo'             - show info
 alias ylo="$package_manager -Qdt"             # '[l]ist [o]rphans'   - list all packages which are orphaned
 alias ylf="$package_manager -Ql"              # '[l]ist [f]iles'     - list all files installed by a given package
 # Use Reflector to populate mirrorlist with fastest mirrors
-alias yrl="sudo reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
+alias yrefresh="sudo reflector --verbose --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 alias yunlock="sudo rm /var/lib/pacman/db.lck"
 
 # }}}
@@ -440,9 +441,19 @@ mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
 
 duc() { find -maxdepth ${1:=1} -type d | while read -r dir; do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done }
 
+# Alias for {{{
+  _aliases="$(alias -Lr 2>/dev/null || alias)"
+
+  alias_for() {
+    [[ $1 =~ '[[:punct:]]' ]] && return
+    local found="$( echo "$_aliases" | sed -nE "/^alias ${1}='?(.+)/s//\\1/p" )"
+    [[ -n $found ]] && echo "${found%\'}"
+  }
+# }}}
+
 # Workarounds (app restarts, etc..) {{{
 
-function erc { xdg-open ~/.zshrc; rerc }
+function erc { $EDITOR ~/.zshrc; rerc }
 function rerc { source ~/.zshrc }
 function repulse { pulseaudio -k && pulseaudio --start }
 function remouse { sudo modprobe -r psmouse; sudo modprobe psmouse; }
@@ -454,6 +465,8 @@ function repacman { sudo rm /var/lib/pacman/db.lck; }
 # }}}
 
 zstyle :compinstall filename '/home/dmitriy/.zshrc'
+# Launch tmux by default
+[[ -z "$TMUX" ]] && tmux new
 
 # References {{{
 
