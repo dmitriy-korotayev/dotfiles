@@ -1,5 +1,5 @@
-snippet cl "console.log" !b
-console.log(${1});
+snippet cl "console.log" i
+console.log(${1})
 endsnippet
 
 snippet f "Basic function" !w
@@ -22,7 +22,11 @@ ${1}: function(${2}) {
 }
 endsnippet
 
-snippet qsa "document.querySelectorAll"
+snippet dqs "document.querySelector"
+document.querySelector('${1}')
+endsnippet
+
+snippet dqsa "document.querySelectorAll"
 document.querySelectorAll('${1}')
 endsnippet
 
@@ -50,22 +54,20 @@ endsnippet
 #  React snippets
 #
 
-snippet rc "Create React Component" !b
-/**
- * @namespace components
- * @class ${1/(.*)/$1/}
- * @constructor
- * @param {Object} props
- */
-var ${1/(.*)/$1/} = React.createClass({
-    render: function() {
-        return (
-            <div className="${1/(.*)/$1/}">${2}</div>
-        );
-    }
-});
+snippet rc "Create React Component"
+import React from 'react';
 
-module.exports = ${1:Component};
+class ${1/(.*)/$1/} extends React.Component {
+	render() {
+		return (
+			<div className="${1/(.*)/$1/}">
+				${2}
+			</div>
+		);
+	}
+};
+
+export default ${1};
 endsnippet
 
 snippet ren "render"
