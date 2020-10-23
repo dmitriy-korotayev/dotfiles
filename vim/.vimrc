@@ -56,9 +56,6 @@ if has('nvim')
     Plug 'ncm2/ncm2'
     Plug 'roxma/nvim-yarp'
 
-    " enable ncm2 for all buffers
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-
     " IMPORTANTE: :help Ncm2PopupOpen for more information
     set completeopt=noinsert,menuone,noselect
 
@@ -240,6 +237,7 @@ set sc " Visual mode info on the right
 " Colors {{{
 
 set t_Co=256 " 256 colors
+set background=light
 "set smc=500 " Don't try to highlight long lines
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1 " transparent terminal bg
@@ -727,6 +725,15 @@ augroup ft_javascript
 augroup END
 
 " }}}
+" TypeScript {{{
+
+augroup ft_typescript
+    au!
+
+    autocmd FileType typescript setlocal re=0
+augroup END
+
+" }}}
 " Ruby {{{
 
 augroup ft_ruby
@@ -841,7 +848,8 @@ let MRU_File = expand('~/.vim/tmp/plugin_mru_files')
 
 " }}}
 " ncm2 {{{
-    autocmd BufEnter * call ncm2#enable_for_buffer()
+    " autocmd BufEnter * call ncm2#enable_for_buffer()
+
     set completeopt=noinsert,menuone,noselect
     set shortmess+=c
 
@@ -946,6 +954,8 @@ let g:TagmaBufMgrMapCTab    = 0
 
 let g:snips_author='Dmitriy Korotayev <korotayev.dmitriy@gmail.com>'
 let g:UltiSnipsExpandTrigger="<c-e>"
+nmap <leader>ue :UltiSnipsEdit<cr>
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
 
 " }}}
 " Vdebug {{{
