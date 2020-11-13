@@ -5,6 +5,7 @@ My dotfiles
 
 Vim: `make`, `cmake`, `gcc` for `YouCompleteMe` plugin compiling
 i3: `pulseaudio-ctl` for volume control
+debian: `apt-get install fortune cowsay fzf tmux`
 *and anything else I forgot*
 
 ## Installation
@@ -17,7 +18,7 @@ cd dotfiles
 git submodule init
 git submodule update
 stow -vt ~ [packages]
-ln -s git/.gitignore ~/.gitignore
+ln -s dotfiles/git/.gitignore ~/.gitignore
 source ~/.zshrc
 zplug install
 ```
