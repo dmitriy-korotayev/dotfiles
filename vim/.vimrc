@@ -691,6 +691,19 @@ endf
 set fdt=ImprovedFoldText()
 
 " }}}
+" Unminify javascript {{{
+
+command! UnMinify call UnMinify()
+function! UnMinify()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
+
+" }}}
 
 " }}}
 
@@ -709,6 +722,16 @@ augroup ft_css
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
     au BufNewFile,BufRead *.less,*.css,*.scss inoremap <buffer> {<cr> {}<left><cr><cr><up><tab>
+augroup END
+
+" }}}
+" Nginx / CONF {{{
+
+augroup ft_conf
+    au!
+
+    au Filetype nginx setlocal sw=4 ts=4 sts=4
+    au Filetype conf  setlocal sw=4 ts=4 sts=4
 augroup END
 
 " }}}
