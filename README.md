@@ -3,9 +3,9 @@ My dotfiles
 
 ## Unobvious prerequisites
 
-Vim: `make`, `cmake`, `gcc` for `YouCompleteMe` plugin compiling
+Vim: `gvim` for Python3 compatibility (UltiSnips)
 i3: `pulseaudio-ctl` for volume control
-debian: `apt-get install fortune cowsay fzf tmux`
+debian: `apt-get install fortune cowsay fzf tmux vim-gtk3`
 *and anything else I forgot*
 
 ## Installation
