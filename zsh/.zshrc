@@ -238,18 +238,12 @@ SAVEHIST=10000
 
 # Plugins {{{
 
-source ~/.zplug/init.zsh
-
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 export NVM_AUTO_USE=true
 
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "b4b4r07/zsh-vimode-visual", defer:3
-zplug "lukechilds/zsh-nvm"
-
-zplug load
+source <(antibody init)
+antibody bundle < ~/.zsh_plugins.txt
 
 # fzf completion
 source "/usr/share/fzf/key-bindings.zsh"
@@ -263,6 +257,8 @@ source "/usr/share/fzf/completion.zsh"
 # user-level global node modules
 export PATH="$HOME/.node_modules/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
+# add filename completion on second argument
+# functions[_yarn]=${functions[_yarn]//"'1: :_yarn_commands_scripts' '\*"/"'1: :_yarn_commands_scripts' '2: :_files' '\*"}
 
 # }}}
 # i3wm {{{
@@ -308,6 +304,7 @@ alias du='du -c -h'                 # folder disk usage
 alias diff='colordiff'              # requires colordiff package
 alias info='info --vi-keys'
 alias ping='ping -c 5'              # ping 5 times
+alias feh='feh -.'
 
 # }}}
 # Variations {{{
@@ -431,15 +428,18 @@ alias openports='ss --all --numeric --processes --ipv4 --ipv6'
 # }}}
 # Functions (more complex than aliases) {{{
 
-# Open thunar in current directory, optional repeat count
-t() { for i in {1..${1:=1}}; do nohup thunar . >/dev/null 2>&1&; done }
-# Open urxvt in current directory, optional repeat count
+# Open file manager in current directory, optional repeat count
+f() { for i in {1..${1:=1}}; do nohup nautilus . >/dev/null 2>&1&; done }
+# Open your terminal in current directory, optional repeat count
 n() { for i in {1..${1:=1}}; do nohup $TERM >/dev/null 2>&1&; done }
 
 # mkdir -p + cd
 mkcd() { dir="$*"; mkdir -p "$dir" && cd "$dir"; }
-
+# TODO
 duc() { find -maxdepth ${1:=1} -type d | while read -r dir; do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done }
+
+# grep with short line truncation
+greps() { grep -iRIoE ".{0,20}$1.{0,20}" $2 }
 
 # Alias for {{{
   _aliases="$(alias -Lr 2>/dev/null || alias)"
@@ -450,7 +450,6 @@ duc() { find -maxdepth ${1:=1} -type d | while read -r dir; do printf "%s:\t" "$
     [[ -n $found ]] && echo "${found%\'}"
   }
 # }}}
-
 # Workarounds (app restarts, etc..) {{{
 
 function erc { $EDITOR ~/.zshrc; rerc }
@@ -537,3 +536,4 @@ zstyle :compinstall filename '/home/dmitriy/.zshrc'
 #exec 2>&3 3>&-
 
 ## }}}
+
