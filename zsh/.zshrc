@@ -307,6 +307,10 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # }}}
+# Composer / wp-cli {{{
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+source 
+# }}}
 
 # }}}
 # Aliases (options and variations for existing, convenient shortcuts) {{{
